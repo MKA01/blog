@@ -1,0 +1,11 @@
+.fa-edit {
+  margin-right: 10px;
+}
+
+.fa-edit:hover {
+  background-color: darkgray;
+}
+
+.fa-trash-alt:hover {
+  background-color: darkgray;
+}
