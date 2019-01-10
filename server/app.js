@@ -32,7 +32,7 @@ app.post('/api/user/login', (req, res) => {
   });
 });
 
-app.post('/api/post/getPosts', (req, res) => {
+app.post('/api/post/loadPosts', (req, res) => {
   mongoose.connect(url, function (err) {
     if (err) throw err;
     Post.find({}, [], {sort: {_id: -1}}, (err, doc) => {
@@ -62,7 +62,7 @@ app.post('/api/post/createPost', (req, res) => {
   });
 });
 
-app.post('/api/post/updatePost', (req, res) => {
+app.post('/api/post/editPost', (req, res) => {
   mongoose.connect(url, function (err) {
     if (err) throw err;
     Post.update(

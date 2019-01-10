@@ -17,7 +17,7 @@ export class AddPostService {
   }
 
   updatePost(post: Post) {
-    return this.http.post('/api/post/updatePost', {
+    return this.http.post('/api/post/editPost', {
       id : post._id,
       title : post.title,
       description : post.description

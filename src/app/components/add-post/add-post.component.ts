@@ -12,14 +12,14 @@ import { CommonService } from '../../services/common.service';
 export class AddPostComponent implements OnInit {
 
   @ViewChild('closeButton') closeButton: ElementRef;
-  public post: Post;
+  public post: Post = <Post>{};
 
-  constructor(private _postService: PostService, private commonService: CommonService) {
-    this.post = new Post();
+  constructor(private _postService: PostService,
+              private commonService: CommonService) {
   }
 
   ngOnInit() {
-    this.commonService.editPost$.subscribe(res => {
+    this.commonService.editPost$.subscribe(() => {
       this.post = this.commonService.postToEdit;
     });
   }
@@ -30,16 +30,19 @@ export class AddPostComponent implements OnInit {
   addPost() {
     if (this.post.title && this.post.description) {
       if (this.post._id) {
-        this._postService.updatePost(this.post).subscribe(res => {
-          this.closeButton.nativeElement.click();
-          this.commonService.emitPostAdd();
-        });
-      } else {
-        this._postService.addPost(this.post).subscribe(res => {
-          this.closeButton.nativeElement.click();
-          this.commonService.emitPostAdd();
-        });
+        this._postService.editPost(this.post, this.post._id)
+          .subscribe(() => {
+            this.closeButton.nativeElement.click();
+            this.commonService.emitPostAdd();
+          });
       }
+      // else {
+      //   this._postService.addPost(this.post)
+      //     .subscribe(() => {
+      //       this.closeButton.nativeElement.click();
+      //       this.commonService.emitPostAdd();
+      //     });
+      // }
     } else {
       alert('Tytuł i opis są wymagane');
     }

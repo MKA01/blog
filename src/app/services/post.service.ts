@@ -11,8 +11,8 @@ export class PostService {
   /**
    * Metoda służy do pobrania wszystkich postów z bazy
    */
-  getPosts() {
-    return this._httpClient.post('/api/post/getPosts', {});
+  loadPosts() {
+    return this._httpClient.get('http://localhost:3000/posts');
   }
 
   /**
@@ -20,29 +20,23 @@ export class PostService {
    * @param post - post do dodania
    */
   addPost(post: Post) {
-    return this._httpClient.post('/api/post/createPost', {
-      title : post.title,
-      description : post.description
-    });
+    return this._httpClient.post('http://localhost:3000/posts', post);
   }
 
   /**
    * Metoda służy do zaktualizowania posta w bazie
    * @param post - post do zaktualizowania
+   * @param id - id posta do zaktualizowania
    */
-  updatePost(post: Post) {
-    return this._httpClient.post('/api/post/updatePost', {
-      id : post._id,
-      title : post.title,
-      description : post.description
-    });
+  editPost(post: Post, id: number) {
+    return this._httpClient.put(`http://localhost:3000/posts/${ id }`, post);
   }
 
   /**
    * Metoda służy do usunięcia posta z bazy
    * @param id - id posta
    */
-  deletePost(id) {
-    return this._httpClient.post('/api/post/deletePost', { id : id });
+  deletePost(id: number) {
+    return this._httpClient.delete(`http://localhost:3000/posts/${ id }`);
   }
 }

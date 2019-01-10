@@ -1,0 +1,26 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "login": "mka",
+      "password": "123"
+    },
+    {
+      "id": 2,
+      "login": "admin",
+      "password": "123"
+    }
+  ],
+  "posts": [
+    {
+      "id": 1,
+      "title": "Tytuł przykładowego posta",
+      "description": "Opis/treść przykładowego posta"
+    },
+    {
+      "id": 2,
+      "title": "Blog o kanarkach już działa",
+      "description": "To tylko testowy post"
+    }
+  ]
+}

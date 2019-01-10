@@ -14,10 +14,13 @@ export class LoginService {
    * @param user - dane użytkownika
    */
   validateLogin(user: User) {
-    return this._httpClient.post('/api/user/login', {
-      username : user.username,
-      password : user.password
-    });
+    // TODO: Poprawić walidacje użytkownika z bazą
+    return true;
+
+    // return this._httpClient.post('http://localhost:3000/users/0', {
+    //   username : user.username,
+    //   password : user.password
+    // });
   }
 
 }

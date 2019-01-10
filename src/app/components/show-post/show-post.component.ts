@@ -13,8 +13,8 @@ export class ShowPostComponent implements OnInit {
 
   @ViewChild('closeButton') closeButton: ElementRef;
 
-  public posts: any [];
-  public postToDelete;
+  public posts: Post[];
+  public postToDelete: Post;
 
   constructor(private _postService: PostService, private commonService: CommonService) {
 
@@ -44,13 +44,14 @@ export class ShowPostComponent implements OnInit {
   }
 
   /**
-   * Metoda służy do pobrania wszystkich postów z bazy. Wywoływana jest podczas inicjalizacji komponentu i po dodaniu posta
+   * Metoda nasłuchuje na odpowiedź z bazy i zapisuje pobrane posty do zmiennej
    */
   getPosts() {
-    this._postService.getPosts().subscribe(result => {
-      console.log('result is ', result);
-      this.posts = result[ 'data' ];
-    });
+    this._postService.loadPosts()
+      .subscribe((response: Post[]) => {
+        console.log('Loaded posts: ', response);
+        this.posts = response;
+      });
   }
 
   /**

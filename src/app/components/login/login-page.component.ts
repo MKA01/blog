@@ -21,20 +21,29 @@ export class LoginPageComponent {
    * Metoda służy do zweryfikowania czy wprowadzone dane logowania są prawidłowe.
    */
   validateLogin() {
-    if (this.user.username && this.user.password) {
-      this._loginService.validateLogin(this.user).subscribe(result => {
-        if (result[ 'status' ] === 'success') {
-          localStorage.setItem('loggedInUser', this.user.username);
-          this._router.navigate([ '/home' ]);
-        } else {
-          alert('Nieprawidłowa nazwa użytkownika i/lub hasło');
-        }
-      }, error => {
-        console.log('Podczas logowania wystąpił błąd: ', error);
-      });
+    // TODO: Poprawić logowanie
+
+    if (this.user.username === 'mka' && this.user.password === '123') {
+      localStorage.setItem('loggedInUser', this.user.username);
+      this._router.navigate([ '/home' ]);
     } else {
-      alert('Wprowadź login i hasło');
+      alert('Nieprawidłowa nazwa użytkownika i/lub hasło');
     }
+    // if (this.user.username && this.user.password) {
+    //   this._loginService.validateLogin(this.user)
+    //     .subscribe(result => {
+    //       if (result[ 'status' ] === 'success') {
+    //         localStorage.setItem('loggedInUser', this.user.username);
+    //         this._router.navigate([ '/home' ]);
+    //       } else {
+    //         alert('Nieprawidłowa nazwa użytkownika i/lub hasło');
+    //       }
+    //     }, error => {
+    //       console.log('Podczas logowania wystąpił błąd: ', error);
+    //     });
+    // } else {
+    //   alert('Wprowadź login i hasło');
+    // }
   }
 
 }

@@ -10,6 +10,8 @@ import { HomeComponent } from './components/home/home.component';
 import { ShowPostComponent } from './components/show-post/show-post.component';
 import { AddPostComponent } from './components/add-post/add-post.component';
 import { CommonService } from './services/common.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule, MatCheckboxModule } from '@angular/material';
 
 @NgModule({
   declarations : [
@@ -23,7 +25,10 @@ import { CommonService } from './services/common.service';
     BrowserModule,
     ROUTING,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatCheckboxModule
   ],
   providers : [ CommonService ],
   bootstrap : [ AppComponent ]
