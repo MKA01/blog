@@ -34,7 +34,7 @@ export class PostService {
    */
   editPost(post: Post, id: string) {
     return this._httpClient.put(`api/posts/${ id }`, {
-      id : post._id,
+      _id : post._id,
       title : post.title,
       description : post.description
     });

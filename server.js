@@ -1,19 +1,19 @@
-var express = require("express");
-var bodyParser = require("body-parser");
-var mongodb = require("mongodb");
-var ObjectID = mongodb.ObjectID;
+let express = require("express");
+let bodyParser = require("body-parser");
+let mongodb = require("mongodb");
+let ObjectID = mongodb.ObjectID;
 
-var POSTS_COLLECTION = "posts";
+let POSTS_COLLECTION = "posts";
 
-var app = express();
+let app = express();
 app.use(bodyParser.json());
 
 // Create link to Angular build directory
-var distDir = __dirname + "/dist/";
+let distDir = __dirname + "/dist/";
 app.use(express.static(distDir));
 
 // Create a database variable outside of the database connection callback to reuse the connection pool in your app.
-var db;
+let db;
 
 // Connect to the database before starting the application server.
 mongodb.MongoClient.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/test", function (err, client) {
@@ -27,8 +27,8 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI || "mongodb://localhost:2701
   console.log("Database connection ready");
 
   // Initialize the app.
-  var server = app.listen(process.env.PORT || 8080, function () {
-    var port = server.address().port;
+  let server = app.listen(process.env.PORT || 8080, function () {
+    let port = server.address().port;
     console.log("App now running on port", port);
   });
 });
@@ -57,13 +57,13 @@ app.get("/api/posts", function (req, res) {
 });
 
 app.post("/api/posts", function (req, res) {
-  var newContact = req.body;
-  newContact.createDate = new Date();
+  let newPost = req.body;
+  newPost.createDate = new Date();
 
   if (!req.body.title) {
     handleError(res, "Invalid user input", "Must provide a title.", 400);
   } else {
-    db.collection(POSTS_COLLECTION).insertOne(newContact, function (err, doc) {
+    db.collection(POSTS_COLLECTION).insertOne(newPost, function (err, doc) {
       if (err) {
         handleError(res, err.message, "Failed to create new post.");
       } else {
@@ -90,15 +90,15 @@ app.get("/api/posts/:id", function (req, res) {
 });
 
 app.put("/api/posts/:id", function (req, res) {
-  var updateDoc = req.body;
-  delete updateDoc._id;
+  let updatePost = req.body;
+  delete updatePost._id;
 
-  db.collection(POSTS_COLLECTION).updateOne({_id: new ObjectID(req.params.id)}, updateDoc, function (err, doc) {
+  db.collection(POSTS_COLLECTION).updateOne({_id: new ObjectID(req.params.id)}, updatePost, function (err, doc) {
     if (err) {
       handleError(res, err.message, "Failed to update post");
     } else {
-      updateDoc._id = req.params.id;
-      res.status(200).json(updateDoc);
+      updatePost._id = req.params.id;
+      res.status(200).json(updatePost);
     }
   });
 });
