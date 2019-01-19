@@ -93,7 +93,7 @@ app.put("/api/posts/:id", function (req, res) {
   let updatePost = req.body;
   delete updatePost._id;
 
-  db.collection(POSTS_COLLECTION).updateOne({_id: new ObjectID(req.params.id)}, updatePost, function (err, doc) {
+  db.collection(POSTS_COLLECTION).replaceOne({_id: new ObjectID(req.params.id)}, updatePost, function (err, doc) {
     if (err) {
       handleError(res, err.message, "Failed to update post");
     } else {
