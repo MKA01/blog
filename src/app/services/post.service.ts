@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Post } from '../models/post';
-import { Http, Response } from '@angular/http';
 
 @Injectable()
 export class PostService {
 
-  constructor(private _httpClient: Http) {
+  constructor(private _httpClient: HttpClient) {
   }
 
   /**
@@ -20,11 +19,8 @@ export class PostService {
    * Metoda służy do dodania posta do bazy
    * @param post - post do dodania
    */
-  addPost(post: Post): Promise<Post> {
-    return this._httpClient.post('api/posts', post)
-      .toPromise()
-      .then(response => response.json() as Post)
-      .catch(this.handleError);
+  addPost(post: Post) {
+    return this._httpClient.post('api/posts', post);
   }
 
   /**
@@ -32,7 +28,7 @@ export class PostService {
    * @param post - post do zaktualizowania
    * @param id - id posta do zaktualizowania
    */
-  editPost(post: Post, id: number) {
+  editPost(post: Post, id: string) {
     return this._httpClient.put(`api/posts/${ id }`, post);
   }
 
@@ -40,14 +36,7 @@ export class PostService {
    * Metoda służy do usunięcia posta z bazy
    * @param id - id posta
    */
-  deletePost(id: number) {
+  deletePost(id: string) {
     return this._httpClient.delete(`api/posts/${ id }`);
-  }
-
-  private handleError(error: any): Promise<any> {
-    const errMsg = (error.message) ? error.message :
-      error.status ? `${ error.status } - ${ error.statusText }` : 'Server error';
-    console.error(errMsg); // log to console
-    return Promise.reject(errMsg);
   }
 }
