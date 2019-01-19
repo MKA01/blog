@@ -33,6 +33,7 @@ export class CommonService {
    */
   setPostToEdit(post: Post) {
     this.postToEdit = post;
+    console.log('postToEdit: ' + this.postToEdit);
     this.emitPostEdit();
   }
 
