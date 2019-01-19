@@ -5,8 +5,18 @@ import { LoginPageComponent } from './components/login/login-page.component';
 import { HomeComponent } from './components/home/home.component';
 
 export const AppRoutes: Routes = [
-  { path : '', component : LoginPageComponent },
-  { path : 'home', component : HomeComponent }
+  {
+    path : '',
+    component : LoginPageComponent
+  },
+  {
+    path : 'home',
+    component : HomeComponent
+  },
+  {
+    path : '**',
+    redirectTo : '/home'
+  }
 ];
 
 export const AppRouting: ModuleWithProviders = RouterModule.forRoot(AppRoutes);
