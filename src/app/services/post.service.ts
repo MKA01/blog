@@ -12,6 +12,7 @@ export class PostService {
    * Metoda służy do pobrania wszystkich postów z bazy
    */
   loadPosts() {
+    console.log('loadPosts');
     return this._httpClient.get('api/posts');
   }
 
@@ -20,11 +21,8 @@ export class PostService {
    * @param post - post do dodania
    */
   addPost(post: Post) {
+    console.log('addPost: ' + post);
     return this._httpClient.post('api/posts', post);
-    // {
-    //   title : post.title,
-    //     description : post.description
-    // }
   }
 
   /**
@@ -33,11 +31,8 @@ export class PostService {
    * @param id - id posta do zaktualizowania
    */
   editPost(post: Post, id: string) {
-    return this._httpClient.put(`api/posts/${ id }`, {
-      _id : post._id,
-      title : post.title,
-      description : post.description
-    });
+    console.log('editPost: ' + post);
+    return this._httpClient.put(`api/posts/${ id }`, post);
   }
 
   /**
@@ -45,6 +40,7 @@ export class PostService {
    * @param id - id posta
    */
   deletePost(id: string) {
+    console.log('deletePost: ' + id);
     return this._httpClient.delete(`api/posts/${ id }`);
   }
 }
