@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Post } from '../models/post';
+import { Http, Response } from '@angular/http';
 
 @Injectable()
 export class PostService {
 
-  constructor(private _httpClient: HttpClient) {
+  constructor(private _httpClient: Http) {
   }
 
   /**
@@ -19,8 +20,11 @@ export class PostService {
    * Metoda służy do dodania posta do bazy
    * @param post - post do dodania
    */
-  addPost(post: Post) {
-    return this._httpClient.post('api/posts', post);
+  addPost(post: Post): Promise<Post> {
+    return this._httpClient.post('api/posts', post)
+      .toPromise()
+      .then(response => response.json() as Post)
+      .catch(this.handleError);
   }
 
   /**
@@ -38,5 +42,12 @@ export class PostService {
    */
   deletePost(id: number) {
     return this._httpClient.delete(`api/posts/${ id }`);
+  }
+
+  private handleError(error: any): Promise<any> {
+    const errMsg = (error.message) ? error.message :
+      error.status ? `${ error.status } - ${ error.statusText }` : 'Server error';
+    console.error(errMsg); // log to console
+    return Promise.reject(errMsg);
   }
 }
