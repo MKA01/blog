@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { ROUTING } from './app.routing';
+import { AppRouting } from './app.routing';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -23,7 +23,7 @@ import { MatButtonModule, MatCheckboxModule } from '@angular/material';
   ],
   imports : [
     BrowserModule,
-    ROUTING,
+    AppRouting,
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,

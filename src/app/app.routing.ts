@@ -9,4 +9,4 @@ export const AppRoutes: Routes = [
   { path : 'home', component : HomeComponent }
 ];
 
-export const ROUTING: ModuleWithProviders = RouterModule.forRoot(AppRoutes);
+export const AppRouting: ModuleWithProviders = RouterModule.forRoot(AppRoutes);

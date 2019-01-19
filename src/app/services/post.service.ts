@@ -21,6 +21,10 @@ export class PostService {
    */
   addPost(post: Post) {
     return this._httpClient.post('api/posts', post);
+    // {
+    //   title : post.title,
+    //     description : post.description
+    // }
   }
 
   /**
@@ -29,7 +33,11 @@ export class PostService {
    * @param id - id posta do zaktualizowania
    */
   editPost(post: Post, id: string) {
-    return this._httpClient.put(`api/posts/${ id }`, post);
+    return this._httpClient.put(`api/posts/${ id }`, {
+      id : post._id,
+      title : post.title,
+      description : post.description
+    });
   }
 
   /**
