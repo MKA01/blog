@@ -17,7 +17,7 @@ export class HomeComponent {
       this._router.navigate([ '/' ]);
     }
 
-    this.commonService.editPost$.subscribe(res => {
+    this.commonService.editPost$.subscribe(() => {
       this.addButton.nativeElement.click();
     });
 

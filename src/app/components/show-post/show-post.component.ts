@@ -23,7 +23,7 @@ export class ShowPostComponent implements OnInit {
   ngOnInit() {
     this.getPosts();
 
-    this.commonService.addPost$.subscribe(res => {
+    this.commonService.addPost$.subscribe(() => {
       this.getPosts();
     });
   }
@@ -49,7 +49,6 @@ export class ShowPostComponent implements OnInit {
   getPosts() {
     this._postService.loadPosts()
       .subscribe((response: Post[]) => {
-        console.log('Loaded posts: ', response);
         this.posts = response;
       });
   }
@@ -66,7 +65,7 @@ export class ShowPostComponent implements OnInit {
    * Metoda służy do usunięcia posta
    */
   deletePost() {
-    this._postService.deletePost(this.postToDelete._id).subscribe(res => {
+    this._postService.deletePost(this.postToDelete._id).subscribe(() => {
       this.getPosts();
       this.closeButton.nativeElement.click();
     });

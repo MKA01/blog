@@ -31,14 +31,12 @@ export class AddPostComponent implements OnInit {
     if (this.post._id) {
       this._postService.editPost(this.post, this.post._id)
         .subscribe(() => {
-          console.log('addPost - id');
           this.closeButton.nativeElement.click();
           this.commonService.emitPostAdd();
         });
     } else {
       this._postService.addPost(this.post)
         .subscribe(() => {
-          console.log('addPost - no id');
           this.closeButton.nativeElement.click();
           this.commonService.emitPostAdd();
         });
