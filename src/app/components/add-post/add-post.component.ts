@@ -29,17 +29,17 @@ export class AddPostComponent implements OnInit {
    */
   addPost() {
     if (this.post._id) {
-      this._postService.editPost(this.post, this.post._id);
-        // .subscribe(() => {
-        //   this.closeButton.nativeElement.click();
-        //   this.commonService.emitPostEdit();
-        // });
+      this._postService.editPost(this.post, this.post._id)
+        .subscribe(() => {
+          this.closeButton.nativeElement.click();
+          this.commonService.emitPostAdd();
+        });
     } else {
-      this._postService.addPost(this.post);
-        // .subscribe(() => {
-        //   this.closeButton.nativeElement.click();
-        //   this.commonService.emitPostAdd();
-        // });
+      this._postService.addPost(this.post)
+        .subscribe(() => {
+          this.closeButton.nativeElement.click();
+          this.commonService.emitPostAdd();
+        });
     }
   }
 
