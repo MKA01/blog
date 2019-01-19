@@ -17,7 +17,7 @@ export class LoginService {
     // TODO: Poprawić walidacje użytkownika z bazą
     return true;
 
-    // return this._httpClient.post('http://localhost:3000/users/0', {
+    // return this._httpClient.post('https://blog-json-server.herokuapp.com/users/0', {
     //   username : user.username,
     //   password : user.password
     // });
