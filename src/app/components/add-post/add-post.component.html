@@ -3,29 +3,46 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Dodaj post</h5>
-        <button type="button" #closeButton class="close" data-dismiss="modal" aria-label="Close">
+        <h5 class="modal-title" id="exampleModalLabel">{{post._id != null ? 'Edytuj post' : 'Dodaj post'}}</h5>
+        <button type="button"
+                #closeButton
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
 
+      <div class="modal-body">
         <form>
           <div class="form-group">
             <label for="exampleInputEmail1">Tytuł</label>
-            <input name="title" type="text" [(ngModel)]="post.title" class="form-control" id="exampleInputEmail1"
-                   aria-describedby="emailHelp" placeholder="Wprowadź tytuł">
+            <input name="title"
+                   type="text"
+                   [(ngModel)]="post.title"
+                   class="form-control"
+                   id="exampleInputEmail1"
+                   aria-describedby="emailHelp"
+                   placeholder="Wprowadź tytuł"
+                   required>
           </div>
 
           <div class="form-group">
             <label for="exampleInputPassword1">Opis</label>
-            <textarea name="description" [(ngModel)]="post.description" class="form-control" id="exampleInputPassword1"
-                      placeholder="Wprowadź opis">
+            <textarea name="description"
+                      [(ngModel)]="post.description"
+                      class="form-control"
+                      id="exampleInputPassword1"
+                      placeholder="Wprowadź opis"
+                      required>
             </textarea>
           </div>
 
-
-          <button (click)="addPost()" type="button" class="btn btn-primary">Dodaj</button>
+          <button (click)="addPost()"
+                  type="button"
+                  class="btn btn-primary">
+            {{post._id != null ? 'Zapisz zmiany' : 'Dodaj post'}}
+          </button>
         </form>
 
       </div>

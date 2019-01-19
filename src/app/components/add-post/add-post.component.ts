@@ -28,22 +28,18 @@ export class AddPostComponent implements OnInit {
    * Metoda służy do przygotowania posta z danych wprowadzonych w formularzu
    */
   addPost() {
-    if (this.post.title && this.post.description) {
-      if (this.post._id) {
-        this._postService.editPost(this.post, this.post._id)
-          .subscribe(() => {
-            this.closeButton.nativeElement.click();
-            this.commonService.emitPostEdit();
-          });
-      } else {
-        this._postService.addPost(this.post)
-          .subscribe(() => {
-            this.closeButton.nativeElement.click();
-            this.commonService.emitPostAdd();
-          });
-      }
+    if (this.post._id) {
+      this._postService.editPost(this.post, this.post._id);
+        // .subscribe(() => {
+        //   this.closeButton.nativeElement.click();
+        //   this.commonService.emitPostEdit();
+        // });
     } else {
-      alert('Tytuł i opis są wymagane');
+      this._postService.addPost(this.post);
+        // .subscribe(() => {
+        //   this.closeButton.nativeElement.click();
+        //   this.commonService.emitPostAdd();
+        // });
     }
   }
 
