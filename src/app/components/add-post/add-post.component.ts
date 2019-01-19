@@ -35,14 +35,13 @@ export class AddPostComponent implements OnInit {
             this.closeButton.nativeElement.click();
             this.commonService.emitPostAdd();
           });
+      } else {
+        this._postService.addPost(this.post)
+          .subscribe(() => {
+            this.closeButton.nativeElement.click();
+            this.commonService.emitPostAdd();
+          });
       }
-      // else {
-      //   this._postService.addPost(this.post)
-      //     .subscribe(() => {
-      //       this.closeButton.nativeElement.click();
-      //       this.commonService.emitPostAdd();
-      //     });
-      // }
     } else {
       alert('Tytuł i opis są wymagane');
     }

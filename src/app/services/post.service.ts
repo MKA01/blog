@@ -12,7 +12,7 @@ export class PostService {
    * Metoda służy do pobrania wszystkich postów z bazy
    */
   loadPosts() {
-    return this._httpClient.get('https://blog-json-server.herokuapp.com/posts');
+    return this._httpClient.get('api/posts');
   }
 
   /**
@@ -20,7 +20,7 @@ export class PostService {
    * @param post - post do dodania
    */
   addPost(post: Post) {
-    return this._httpClient.post('https://blog-json-server.herokuapp.com/posts', post);
+    return this._httpClient.post('api/posts', post);
   }
 
   /**
@@ -29,7 +29,7 @@ export class PostService {
    * @param id - id posta do zaktualizowania
    */
   editPost(post: Post, id: number) {
-    return this._httpClient.put(`https://blog-json-server.herokuapp.com/posts/${ id }`, post);
+    return this._httpClient.put(`api/posts/${ id }`, post);
   }
 
   /**
@@ -37,6 +37,6 @@ export class PostService {
    * @param id - id posta
    */
   deletePost(id: number) {
-    return this._httpClient.delete(`https://blog-json-server.herokuapp.com/posts/${ id }`);
+    return this._httpClient.delete(`api/posts/${ id }`);
   }
 }
