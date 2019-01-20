@@ -49,40 +49,20 @@ export class RegisterPageComponent implements OnInit {
       return;
     }
 
-    // if (this._checkIfUserExists) {
-    //   this._userExists = true;
-    //   return;
-    // }
-
-    this._registerService.registerUser(this._user)
-      .subscribe(() => {
-        this._router.navigate([ 'login' ]);
-      });
-  }
-
-  /**
-   * Metoda nasłuchuje na odpowiedź z bazy i zapisuje pobranych użytkowników do zmiennej
-   */
-  private _getUsers() {
     this._registerService.getUsers()
       .subscribe((response: User[]) => {
         this._users = response;
+        for (let i = 0; i < this._users.length; i++) {
+          if (this._users[ i ].username === this._user.username) {
+            this._userExists = true;
+            return;
+          }
+          this._registerService.registerUser(this._user)
+            .subscribe(() => {
+              this._router.navigate([ 'login' ]);
+            });
+        }
       });
-  }
-
-  /**
-   * Metoda sprawdza czy w bazie istnieje już użytkownik o podanym loginie
-   * @param login - login
-   */
-  private _checkIfUserExists(login: string): boolean {
-    this._getUsers();
-
-    for (let i = 0; i < this._users.length; i++) {
-      if (this._users[ i ].username === login) {
-        return true;
-      }
-    }
-    return false;
   }
 
   private _backToLogin() {

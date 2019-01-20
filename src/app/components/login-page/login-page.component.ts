@@ -11,14 +11,15 @@ import { NgForm } from '@angular/forms';
   providers : [ LoginService ]
 })
 export class LoginPageComponent implements OnInit {
+  private _user: User = new User();
   private _wrongCaptcha: boolean;
   private _wrongCredentials: boolean;
   private _firstNumber: number;
   private _secondNumber: number;
-  public user: User;
+  private _users: User[];
 
   constructor(private _loginService: LoginService, private _router: Router) {
-    this.user = new User();
+    this._user = new User();
   }
 
   ngOnInit(): void {
@@ -31,22 +32,32 @@ export class LoginPageComponent implements OnInit {
   /**
    * Metoda służy do zweryfikowania czy wprowadzone dane logowania są prawidłowe.
    */
-  validateCredentials(form: NgForm) {
+  private _validateCredentials(form: NgForm) {
     this._wrongCaptcha = false;
     this._wrongCredentials = false;
     const captcha = form.value.captcha;
+    this._user.username = form.value.login;
+    this._user.password = form.value.password;
 
     if (captcha !== (this._firstNumber + this._secondNumber)) {
       this._wrongCaptcha = true;
       return;
     }
 
-    if (this._loginService.validateCredentials(this.user)) {
-      localStorage.setItem('loggedUser', this.user.username);
-      this._router.navigate([ 'app/home' ]);
-    } else {
-      this._wrongCredentials = true;
-    }
+    this._loginService.getUsers()
+      .subscribe((response: User[]) => {
+        this._users = response;
+        for (let i = 0; i < this._users.length; i++) {
+          if (this._users[ i ].username === this._user.username && this._users[ i ].password === this._user.password) {
+            this._loginService.isLogged = true;
+            localStorage.setItem('loggedUser', this._user.username);
+            this._router.navigate([ 'app/home' ]);
+            return;
+          }
+        }
+      });
+
+    this._wrongCredentials = true;
   }
 
   /**
