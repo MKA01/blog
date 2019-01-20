@@ -1,0 +1,38 @@
+.container {
+  height: 100%;
+  //background-image: url("~src/assets/11004-NN4U94.jpg");
+  background-size: cover;
+  padding: 0;
+  max-width: none;
+
+  .login-form-card {
+    border-radius: 30px;
+    background-color: rgba(231, 118, 71, 0.4);
+    padding: 30px;
+    max-width: 500px;
+
+    .submit-button {
+      margin-top: 30px;
+    }
+
+    .title {
+      margin-top: 15px;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+  }
+
+  .login-form-row {
+    margin: 0;
+
+    img {
+      height: 175px;
+      width: auto;
+      margin-bottom: 15px;
+    }
+  }
+
+  .row {
+    height: 40%;
+  }
+}

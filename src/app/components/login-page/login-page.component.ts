@@ -24,7 +24,7 @@ export class LoginPageComponent {
     // TODO: Poprawić logowanie
 
     if (this.user.username === 'mka' && this.user.password === '123') {
-      localStorage.setItem('loggedInUser', this.user.username);
+      localStorage.setItem('loggedUser', this.user.username);
       this._router.navigate([ '/home' ]);
     } else {
       alert('Nieprawidłowa nazwa użytkownika i/lub hasło');
@@ -33,7 +33,7 @@ export class LoginPageComponent {
     //   this._loginService.validateLogin(this.user)
     //     .subscribe(result => {
     //       if (result[ 'status' ] === 'success') {
-    //         localStorage.setItem('loggedInUser', this.user.username);
+    //         localStorage.setItem('loggedUser', this.user.username);
     //         this._router.navigate([ '/home' ]);
     //       } else {
     //         alert('Nieprawidłowa nazwa użytkownika i/lub hasło');
@@ -44,6 +44,13 @@ export class LoginPageComponent {
     // } else {
     //   alert('Wprowadź login i hasło');
     // }
+  }
+
+  /**
+   * Metoda służy do przeniesienia do strony rejestracji po kliknięciu przycisku
+   */
+  register() {
+    this._router.navigate([ '/register' ]);
   }
 
 }

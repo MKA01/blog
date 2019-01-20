@@ -4,6 +4,7 @@ let mongodb = require("mongodb");
 let ObjectID = mongodb.ObjectID;
 
 let POSTS_COLLECTION = "posts";
+let USERS_COLLECTION = "users";
 
 let app = express();
 app.use(bodyParser.json());
@@ -15,7 +16,9 @@ app.use(express.static(distDir));
 // Create a database variable outside of the database connection callback to reuse the connection pool in your app.
 let db;
 
-// Connect to the database before starting the application server.
+/**
+ * Connect to the database before starting the application server
+ */
 mongodb.MongoClient.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/test", function (err, client) {
   if (err) {
     console.log(err);
@@ -33,19 +36,17 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI || "mongodb://localhost:2701
   });
 });
 
-// POSTS API ROUTES BELOW
-
-// Generic error handler used by all endpoints.
+/**
+ * Generic error handler used by all endpoints.
+ */
 function handleError(res, reason, message, code) {
   console.log("ERROR: " + reason);
   res.status(code || 500).json({"error": message});
 }
 
-/*  "/api/posts"
- *    GET: finds all posts
- *    POST: creates a new post
+/**
+ * GET: finds all posts
  */
-
 app.get("/api/posts", function (req, res) {
   db.collection(POSTS_COLLECTION).find({}).toArray(function (err, docs) {
     if (err) {
@@ -56,6 +57,9 @@ app.get("/api/posts", function (req, res) {
   });
 });
 
+/**
+ * POST: create a new post
+ */
 app.post("/api/posts", function (req, res) {
   let newPost = req.body;
   newPost.createDate = new Date();
@@ -73,12 +77,9 @@ app.post("/api/posts", function (req, res) {
   }
 });
 
-/*  "/api/posts/:id"
- *    GET: find post by id
- *    PUT: update post by id
- *    DELETE: deletes post by id
+/**
+ * GET: find post by id
  */
-
 app.get("/api/posts/:id", function (req, res) {
   db.collection(POSTS_COLLECTION).findOne({_id: new ObjectID(req.params.id)}, function (err, doc) {
     if (err) {
@@ -89,6 +90,9 @@ app.get("/api/posts/:id", function (req, res) {
   });
 });
 
+/**
+ * PUT: update post by id
+ */
 app.put("/api/posts/:id", function (req, res) {
   let updatePost = req.body;
   delete updatePost._id;
@@ -103,6 +107,9 @@ app.put("/api/posts/:id", function (req, res) {
   });
 });
 
+/**
+ * DELETE: delete post by id
+ */
 app.delete("/api/posts/:id", function (req, res) {
   db.collection(POSTS_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function (err, result) {
     if (err) {
@@ -111,4 +118,37 @@ app.delete("/api/posts/:id", function (req, res) {
       res.status(200).json(req.params.id);
     }
   });
+});
+
+/**
+ * GET: find all users
+ */
+app.get("/api/users", function (req, res) {
+  db.collection(USERS_COLLECTION).find({}).toArray(function (err, docs) {
+    if (err) {
+      handleError(res, err.message, "Failed to get users.");
+    } else {
+      res.status(200).json(docs);
+    }
+  });
+});
+
+/**
+ * POST: create new user
+ */
+app.post("/api/users", function (req, res) {
+  let newUser = req.body;
+  newUser.registerDate = new Date();
+
+  if (!req.body.username && !req.body.password) {
+    handleError(res, "Invalid user input", "Must provide a username and password.", 400);
+  } else {
+    db.collection(USERS_COLLECTION).insertOne(newUser, function (err, doc) {
+      if (err) {
+        handleError(res, err.message, "Failed to create new user.");
+      } else {
+        res.status(201).json(doc.ops[0]);
+      }
+    });
+  }
 });

@@ -33,6 +33,7 @@ export class AddPostComponent implements OnInit {
         .subscribe(() => {
           this.closeButton.nativeElement.click();
           this.commonService.emitPostAdd();
+          this.commonService.postToEdit = null;
         });
     } else {
       this._postService.addPost(this.post)
