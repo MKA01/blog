@@ -5,7 +5,11 @@
             (ngSubmit)="register(registerForm)"
             #registerForm="ngForm">
 
-        <div class="form-group">
+        <h3 class="title">
+          REJESTRACJA
+        </h3>
+
+        <div class="form-group form-inline">
           <label class="control-label col-sm-2"
                  for="login">
             Login:
@@ -18,10 +22,10 @@
                  required>
         </div>
 
-        <div class="form-group">
+        <div class="form-group form-inline">
           <label class="control-label col-sm-2"
                  for="password">
-            Password:
+            Hasło:
           </label>
           <input type="password"
                  class="form-control"
@@ -31,8 +35,9 @@
                  required>
         </div>
 
-        <div class="form-group">
-          <label for="captcha" class="control-label col-sm-2">
+        <div class="form-group form-inline">
+          <label class="control-label col-sm-2"
+                 for="captcha">
             {{_firstNumber}} + {{_secondNumber}} =
           </label>
           <input type="number"
@@ -64,7 +69,13 @@
         <button type="submit"
                 class="btn btn-primary btn-block submit-button"
                 [disabled]="!registerForm.form.valid">
-          Sign in
+          Zarejestruj się
+        </button>
+
+        <button type="button"
+                class="btn btn-primary btn-block submit-button"
+                (click)="_backToLogin()">
+          Powrót do logowania
         </button>
 
 

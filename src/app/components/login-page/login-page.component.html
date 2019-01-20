@@ -1,23 +1,79 @@
-<form class="form-sign-in">
-  <h2 class="form-sign-in-heading">Logowanie do bloga</h2>
+<div class="container">
+  <div class="row d-flex justify-content-center align-items-center login-form-row">
+    <div class="login-form-card col-xl-3 col-lg-3 col-md-4 col-sm-12 col12">
+      <form class="form-horizontal"
+            (ngSubmit)="validateCredentials(loginForm)"
+            #loginForm="ngForm">
 
-  <label for="inputUsername" class="sr-only">Login</label>
+        <h3 class="title">
+          LOGOWANIE
+        </h3>
 
-  <input name="username" [(ngModel)]="user.username" type="text" id="inputUsername" class="form-control"
-         placeholder="Login" required autofocus>
+        <div class="form-group form-inline">
+          <label class="control-label col-sm-2"
+                 for="login">
+            Login:
+          </label>
+          <input type="text"
+                 class="form-control"
+                 id="login"
+                 name="login"
+                 ngModel
+                 required>
+        </div>
 
-  <label for="inputPassword" class="sr-only">Hasło</label>
+        <div class="form-group form-inline">
+          <label class="control-label col-sm-2"
+                 for="password">
+            Hasło:
+          </label>
+          <input type="password"
+                 class="form-control"
+                 id="password"
+                 name="password"
+                 ngModel
+                 required>
+        </div>
 
-  <input name="password" [(ngModel)]="user.password" type="password" id="inputPassword" class="form-control"
-         placeholder="Hasło" required>
+        <div class="form-group form-inline">
+          <label class="control-label col-sm-2"
+                 for="captcha">
+            {{_firstNumber}} + {{_secondNumber}} =
+          </label>
+          <input type="number"
+                 class="form-control"
+                 id="captcha"
+                 name="captcha"
+                 ngModel
+                 required>
+        </div>
 
-  <div class="checkbox">
-    <label>
-      <input type="checkbox" value="remember-me"> Zapamiętaj
-    </label>
+        <div *ngIf="_wrongCaptcha"
+             class="alert alert-danger"
+             role="alert">
+          Nieprawidłowa captcha
+        </div>
+
+        <div *ngIf="_wrongCredentials"
+             class="alert alert-danger"
+             role="alert">
+          Nieprawidłowy login i/lub hasło
+        </div>
+
+        <button type="submit"
+                class="btn btn-primary btn-block submit-button"
+                [disabled]="!loginForm.form.valid">
+          Zaloguj się
+        </button>
+
+        <button type="button"
+                class="btn btn-primary btn-block submit-button"
+                (click)="_navigateToRegisterPage()">
+          Rejestracja
+        </button>
+
+
+      </form>
+    </div>
   </div>
-
-  <button class="btn btn-lg btn-primary btn-block" (click)="validateLogin();" type="button">Zaloguj</button>
-
-  <button class="btn btn-lg btn-primary btn-block" (click)="register();" type="button">Zarejestruj</button>
-</form>
+</div>

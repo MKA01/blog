@@ -1,0 +1,31 @@
+<mat-toolbar class="bg-warning">
+
+  <span class="badge badge-warning">
+    Blog o kanarkach
+  </span>
+
+  <span class="example-fill-remaining-space">
+
+  </span>
+
+  <button (click)="_homeButtonClick()"
+          class="btn btn-primary home-button">
+    Strona główna
+  </button>
+
+  <button (click)="_logOutButtonClick()"
+          class="btn btn-primary logout-button">
+    Wyloguj
+  </button>
+
+</mat-toolbar>
+
+<router-outlet></router-outlet>
+
+<mat-toolbar class="bg-warning">
+
+  <span class="badge badge-warning">
+    Created by Mateusz Kaliciński
+  </span>
+
+</mat-toolbar>

@@ -17,7 +17,7 @@ export class RegisterPageComponent implements OnInit {
   private _secondNumber: number;
   private _regex: string;
   private _users: User[];
-  private _user: User;
+  private _user: User = new User();
 
   constructor(private _router: Router,
               private _registerService: RegisterService) { }
@@ -26,12 +26,15 @@ export class RegisterPageComponent implements OnInit {
     this._userExists = false;
     this._wrongCaptcha = false;
     this._wrongSymbols = false;
-    this._firstNumber = Math.floor(Math.random());
-    this._secondNumber = Math.floor(Math.random());
+    this._firstNumber = Math.floor(Math.random() * 10);
+    this._secondNumber = Math.floor(Math.random() * 10);
     this._regex = '[a-zA-Z0-9]';
   }
 
   register(form: NgForm) {
+    this._userExists = false;
+    this._wrongCaptcha = false;
+    this._wrongSymbols = false;
     const captcha = form.value.captcha;
     this._user.username = form.value.login;
     this._user.password = form.value.password;
@@ -80,6 +83,10 @@ export class RegisterPageComponent implements OnInit {
       }
     }
     return false;
+  }
+
+  private _backToLogin() {
+    this._router.navigate([ 'login' ]);
   }
 
 }

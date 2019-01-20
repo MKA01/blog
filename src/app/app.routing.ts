@@ -4,33 +4,40 @@ import { ModuleWithProviders } from '@angular/core/src/metadata/ng_module';
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { HomeComponent } from './components/home/home.component';
 import { RegisterPageComponent } from './components/register-page/register-page.component';
-import { AppComponent } from './app.component';
+import { AuthGuardService } from './services/auth/auth-guard.service';
+import { AppContainerComponent } from './components/app-container/app-container.component';
 
 export const AppRoutes: Routes = [
   {
+    path : 'login',
+    component : LoginPageComponent
+  },
+  {
+    path : '',
+    component : LoginPageComponent
+  },
+  {
+    path : 'register',
+    component : RegisterPageComponent
+  },
+  {
     path : 'app',
-    component : AppComponent,
+    component : AppContainerComponent,
+    canActivate : [ AuthGuardService ],
+    canActivateChild : [ AuthGuardService ],
     children : [
-      {
-        path : 'login',
-        component : LoginPageComponent
-      },
       {
         path : 'home',
         component : HomeComponent
-      },
-      {
-        path : 'register',
-        component : RegisterPageComponent
       }
     ]
   },
   {
     path : '**',
-    redirectTo : '/home'
+    redirectTo : 'app/home'
   },
   {
-    path : '',
+    path : '#',
     redirectTo : 'app/home',
     pathMatch : 'full'
   }
