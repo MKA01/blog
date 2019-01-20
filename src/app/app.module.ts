@@ -13,6 +13,7 @@ import { CommonService } from './services/common.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatCheckboxModule } from '@angular/material';
 import { RegisterPageComponent } from './components/register-page/register-page.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations : [
@@ -32,7 +33,9 @@ import { RegisterPageComponent } from './components/register-page/register-page.
     MatButtonModule,
     MatCheckboxModule
   ],
-  providers : [ CommonService ],
+  providers : [
+    CommonService,
+    { provide : LocationStrategy, useClass : HashLocationStrategy } ],
   bootstrap : [ AppComponent ]
 })
 export class AppModule {

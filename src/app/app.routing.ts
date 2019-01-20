@@ -7,34 +7,33 @@ import { RegisterPageComponent } from './components/register-page/register-page.
 import { AppComponent } from './app.component';
 
 export const AppRoutes: Routes = [
-    {
-      path : 'app',
-      component : AppComponent,
-      children : [
-        {
-          path : 'login',
-          component : LoginPageComponent
-        },
-        {
-          path : 'home',
-          component : HomeComponent
-        },
-        {
-          path : 'register',
-          component : RegisterPageComponent
-        }
-      ]
-    },
-    {
-      path : '**',
-      redirectTo : '/home'
-    },
-    {
-      path : '',
-      redirectTo : 'app/home',
-      pathMatch : 'full'
-    }
-  ]
-;
+  {
+    path : 'app',
+    component : AppComponent,
+    children : [
+      {
+        path : 'login',
+        component : LoginPageComponent
+      },
+      {
+        path : 'home',
+        component : HomeComponent
+      },
+      {
+        path : 'register',
+        component : RegisterPageComponent
+      }
+    ]
+  },
+  {
+    path : '**',
+    redirectTo : '/home'
+  },
+  {
+    path : '',
+    redirectTo : 'app/home',
+    pathMatch : 'full'
+  }
+];
 
-export const AppRouting: ModuleWithProviders = RouterModule.forRoot(AppRoutes);
+export const AppRouting: ModuleWithProviders = RouterModule.forRoot(AppRoutes, { useHash : true, onSameUrlNavigation : 'reload' });
