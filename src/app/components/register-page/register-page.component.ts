@@ -49,10 +49,10 @@ export class RegisterPageComponent implements OnInit {
       return;
     }
 
-    if (this._checkIfUserExists) {
-      this._userExists = true;
-      return;
-    }
+    // if (this._checkIfUserExists) {
+    //   this._userExists = true;
+    //   return;
+    // }
 
     this._registerService.registerUser(this._user)
       .subscribe(() => {
