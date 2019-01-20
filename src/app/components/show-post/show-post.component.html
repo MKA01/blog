@@ -12,9 +12,9 @@
       <small>Autor: {{post.user}}</small>
 
       <div>
-        <i title="Edytuj" class="fas fa-edit" (click)="editPost(post)" aria-hidden="true"></i>
-        <i title="Usuń" (click)="setPostToDelete(post)" data-toggle="modal" data-target="#deleteModal"
-           class="fas fa-trash-alt" aria-hidden="true"></i>
+        <i (click)="editPost(post)" aria-hidden="true" class="fas fa-edit" title="Edytuj"></i>
+        <i (click)="setPostToDelete(post)" aria-hidden="true" class="fas fa-trash-alt" data-target="#deleteModal"
+           data-toggle="modal" title="Usuń"></i>
       </div>
 
     </div>

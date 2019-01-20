@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Post } from '../../models/post';
 import { PostService } from '../../services/post.service';
 import { CommonService } from '../../services/common.service';

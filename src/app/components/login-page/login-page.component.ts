@@ -55,9 +55,9 @@ export class LoginPageComponent implements OnInit {
             return;
           }
         }
-      });
 
-    this._wrongCredentials = true;
+        this._wrongCredentials = true;
+      });
   }
 
   /**

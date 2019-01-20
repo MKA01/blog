@@ -1,14 +1,14 @@
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
+<div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="exampleModal" role="dialog"
+     tabindex="-1">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">{{post._id != null ? 'Edytuj post' : 'Dodaj post'}}</h5>
-        <button type="button"
-                #closeButton
+        <button #closeButton
+                aria-label="Close"
                 class="close"
                 data-dismiss="modal"
-                aria-label="Close">
+                type="button">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -17,30 +17,30 @@
         <form>
           <div class="form-group">
             <label for="exampleInputEmail1">Tytuł</label>
-            <input name="title"
-                   type="text"
-                   [(ngModel)]="post.title"
+            <input [(ngModel)]="post.title"
+                   aria-describedby="emailHelp"
                    class="form-control"
                    id="exampleInputEmail1"
-                   aria-describedby="emailHelp"
+                   name="title"
                    placeholder="Wprowadź tytuł"
-                   required>
+                   required
+                   type="text">
           </div>
 
           <div class="form-group">
             <label for="exampleInputPassword1">Opis</label>
-            <textarea name="description"
-                      [(ngModel)]="post.description"
+            <textarea [(ngModel)]="post.description"
                       class="form-control"
                       id="exampleInputPassword1"
+                      name="description"
                       placeholder="Wprowadź opis"
                       required>
             </textarea>
           </div>
 
           <button (click)="addPost()"
-                  type="button"
-                  class="btn btn-primary">
+                  class="btn btn-primary"
+                  type="button">
             {{post._id != null ? 'Zapisz zmiany' : 'Dodaj post'}}
           </button>
         </form>

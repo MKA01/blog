@@ -1,9 +1,9 @@
 <div class="container">
   <div class="row d-flex justify-content-center align-items-center login-form-row">
     <div class="login-form-card col-xl-3 col-lg-3 col-md-4 col-sm-12 col12">
-      <form class="form-horizontal"
+      <form #loginForm="ngForm"
             (ngSubmit)="_validateCredentials(loginForm)"
-            #loginForm="ngForm">
+            class="form-horizontal">
 
         <h3 class="title">
           LOGOWANIE
@@ -14,12 +14,12 @@
                  for="login">
             Login:
           </label>
-          <input type="text"
-                 class="form-control"
+          <input class="form-control"
                  id="login"
                  name="login"
                  ngModel
-                 required>
+                 required
+                 type="text">
         </div>
 
         <div class="form-group form-inline">
@@ -27,12 +27,12 @@
                  for="password">
             Hasło:
           </label>
-          <input type="password"
-                 class="form-control"
+          <input class="form-control"
                  id="password"
                  name="password"
                  ngModel
-                 required>
+                 required
+                 type="password">
         </div>
 
         <div class="form-group form-inline">
@@ -40,12 +40,12 @@
                  for="captcha">
             {{_firstNumber}} + {{_secondNumber}} =
           </label>
-          <input type="number"
-                 class="form-control"
+          <input class="form-control"
                  id="captcha"
                  name="captcha"
                  ngModel
-                 required>
+                 required
+                 type="number">
         </div>
 
         <div *ngIf="_wrongCaptcha"
@@ -60,15 +60,15 @@
           Nieprawidłowy login i/lub hasło
         </div>
 
-        <button type="submit"
+        <button [disabled]="!loginForm.form.valid"
                 class="btn btn-primary btn-block submit-button"
-                [disabled]="!loginForm.form.valid">
+                type="submit">
           Zaloguj się
         </button>
 
-        <button type="button"
+        <button (click)="_navigateToRegisterPage()"
                 class="btn btn-primary btn-block submit-button"
-                (click)="_navigateToRegisterPage()">
+                type="button">
           Rejestracja
         </button>
 
