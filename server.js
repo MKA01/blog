@@ -1,6 +1,7 @@
 let express = require("express");
 let bodyParser = require("body-parser");
 let mongodb = require("mongodb");
+let cors = require("cors");
 let ObjectID = mongodb.ObjectID;
 
 let POSTS_COLLECTION = "posts";
@@ -9,12 +10,15 @@ let USERS_COLLECTION = "users";
 let app = express();
 app.use(bodyParser.json());
 
-// Create link to Angular build directory
 let distDir = __dirname + "/dist/";
 app.use(express.static(distDir));
 
-// Create a database variable outside of the database connection callback to reuse the connection pool in your app.
 let db;
+
+let corsOptions = {
+  origin: '*',
+  optionsSuccessStatus: 200
+};
 
 /**
  * Connect to the database before starting the application server
@@ -25,11 +29,9 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI || "mongodb://localhost:2701
     process.exit(1);
   }
 
-  // Save database object from the callback for reuse.
   db = client.db();
   console.log("Database connection ready");
 
-  // Initialize the app.
   let server = app.listen(process.env.PORT || 8080, function () {
     let port = server.address().port;
     console.log("App now running on port", port);
@@ -47,7 +49,7 @@ function handleError(res, reason, message, code) {
 /**
  * GET: finds all posts
  */
-app.get("/api/posts", function (req, res) {
+app.get("/api/posts", cors(corsOptions), function (req, res) {
   db.collection(POSTS_COLLECTION).find({}).toArray(function (err, docs) {
     if (err) {
       handleError(res, err.message, "Failed to get posts.");
@@ -60,9 +62,9 @@ app.get("/api/posts", function (req, res) {
 /**
  * POST: create a new post
  */
-app.post("/api/posts", function (req, res) {
+app.post("/api/posts", cors(corsOptions), function (req, res) {
   let newPost = req.body;
-  newPost.createDate = new Date();
+  newPost.createDate = new Date().toLocaleString();
 
   if (!req.body.title) {
     handleError(res, "Invalid user input", "Must provide a title.", 400);
@@ -80,7 +82,7 @@ app.post("/api/posts", function (req, res) {
 /**
  * GET: find post by id
  */
-app.get("/api/posts/:id", function (req, res) {
+app.get("/api/posts/:id", cors(corsOptions), function (req, res) {
   db.collection(POSTS_COLLECTION).findOne({_id: new ObjectID(req.params.id)}, function (err, doc) {
     if (err) {
       handleError(res, err.message, "Failed to get post");
@@ -93,7 +95,7 @@ app.get("/api/posts/:id", function (req, res) {
 /**
  * PUT: update post by id
  */
-app.put("/api/posts/:id", function (req, res) {
+app.put("/api/posts/:id", cors(corsOptions), function (req, res) {
   let updatePost = req.body;
   delete updatePost._id;
 
@@ -110,7 +112,7 @@ app.put("/api/posts/:id", function (req, res) {
 /**
  * DELETE: delete post by id
  */
-app.delete("/api/posts/:id", function (req, res) {
+app.delete("/api/posts/:id", cors(corsOptions), function (req, res) {
   db.collection(POSTS_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function (err, result) {
     if (err) {
       handleError(res, err.message, "Failed to delete post");
@@ -123,7 +125,7 @@ app.delete("/api/posts/:id", function (req, res) {
 /**
  * GET: find all users
  */
-app.get("/api/users", function (req, res) {
+app.get("/api/users", cors(corsOptions), function (req, res) {
   db.collection(USERS_COLLECTION).find({}).toArray(function (err, docs) {
     if (err) {
       handleError(res, err.message, "Failed to get users.");
@@ -136,9 +138,9 @@ app.get("/api/users", function (req, res) {
 /**
  * POST: create new user
  */
-app.post("/api/users", function (req, res) {
+app.post("/api/users", cors(corsOptions), function (req, res) {
   let newUser = req.body;
-  newUser.registerDate = new Date();
+  newUser.registerDate = new Date().toLocaleString();
 
   if (!req.body.username && !req.body.password) {
     handleError(res, "Invalid user input", "Must provide a username and password.", 400);
