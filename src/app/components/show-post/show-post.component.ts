@@ -49,11 +49,7 @@ export class ShowPostComponent implements OnInit {
   getPosts() {
     this._postService.loadPosts()
       .subscribe((response: Post[]) => {
-        for (let i = 0; i < response.length; i++) {
-          if (response[ i ].user === localStorage.getItem('loggedUser')) {
-            this.posts.push(response[ i ]);
-          }
-        }
+        this.posts = response;
       });
   }
 

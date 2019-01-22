@@ -26,6 +26,9 @@ export class AppContainerComponent implements OnInit {
     this._router.navigate([ 'login' ]);
   }
 
+  /**
+   * Metoda służy do przeniesienia użytkownika do strony głównej
+   */
   private _homeButtonClick() {
     this._router.navigate([ 'app/home' ]);
   }

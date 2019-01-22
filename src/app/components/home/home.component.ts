@@ -1,5 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { CommonService } from '../../services/common.service';
+import { Component } from '@angular/core';
 
 @Component({
   selector : 'app-home',
@@ -8,12 +7,7 @@ import { CommonService } from '../../services/common.service';
 })
 export class HomeComponent {
 
-  @ViewChild('addPost') addButton: ElementRef;
-
-  constructor(private _commonService: CommonService) {
-    this._commonService.editPost$.subscribe(() => {
-      this.addButton.nativeElement.click();
-    });
+  constructor() {
   }
 
 }

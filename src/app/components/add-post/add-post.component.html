@@ -1,9 +1,66 @@
-<div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="exampleModal" role="dialog"
+<div class="list-group margin">
+  <div class="list-group-item flex-column align-items-start">
+    <div class="d-flex w-100 justify-content-between">
+
+      <form #addPostForm="ngForm"
+            (ngSubmit)="addPost()"
+            class="add-form">
+
+        <div class="form-group form-inline">
+          <input class="form-control"
+                 id="title"
+                 name="title"
+                 ngModel
+                 required
+                 type="text"
+                 placeholder="Wprowadź tytuł">
+        </div>
+
+        <div class="form-group form-inline">
+          <textarea class="form-control"
+                    id="description"
+                    name="description"
+                    ngModel
+                    required
+                    type="text"
+                    placeholder="Wprowadź opis"
+                    rows="6">
+          </textarea>
+        </div>
+
+        <button [disabled]="!addPostForm.form.valid"
+                class="btn btn-primary btn-block submit-button"
+                type="submit">
+          Dodaj post
+        </button>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<button #editPostButton
+        type="button"
+        style="display: none"
+        data-toggle="modal"
+        data-target="#exampleModal">
+  Edytuj post
+</button>
+
+<div aria-hidden="true"
+     aria-labelledby="editModal"
+     class="modal fade"
+     id="exampleModal"
+     role="dialog"
      tabindex="-1">
-  <div class="modal-dialog" role="document">
+
+  <div class="modal-dialog"
+       role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">{{post._id != null ? 'Edytuj post' : 'Dodaj post'}}</h5>
+        <h5 class="modal-title"
+            id="editModal">Edytuj post</h5>
         <button #closeButton
                 aria-label="Close"
                 class="close"
@@ -16,11 +73,11 @@
       <div class="modal-body">
         <form>
           <div class="form-group">
-            <label for="exampleInputEmail1">Tytuł</label>
+            <label for="title-modal">Tytuł</label>
             <input [(ngModel)]="post.title"
                    aria-describedby="emailHelp"
                    class="form-control"
-                   id="exampleInputEmail1"
+                   id="title-modal"
                    name="title"
                    placeholder="Wprowadź tytuł"
                    required
@@ -28,20 +85,20 @@
           </div>
 
           <div class="form-group">
-            <label for="exampleInputPassword1">Opis</label>
+            <label for="description-modal">Opis</label>
             <textarea [(ngModel)]="post.description"
                       class="form-control"
-                      id="exampleInputPassword1"
+                      id="description-modal"
                       name="description"
                       placeholder="Wprowadź opis"
                       required>
             </textarea>
           </div>
 
-          <button (click)="addPost()"
+          <button (click)="editPost()"
                   class="btn btn-primary"
                   type="button">
-            {{post._id != null ? 'Zapisz zmiany' : 'Dodaj post'}}
+            Zapisz zmiany
           </button>
         </form>
 

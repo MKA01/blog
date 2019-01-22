@@ -12,36 +12,44 @@ import { CommonService } from '../../services/common.service';
 export class AddPostComponent implements OnInit {
 
   @ViewChild('closeButton') closeButton: ElementRef;
+  @ViewChild('editPostButton') editPostButton: ElementRef;
+
   public post: Post = <Post>{};
 
   constructor(private _postService: PostService,
-              private commonService: CommonService) {
+              private _commonService: CommonService) {
+    this._commonService.editPost$.subscribe(() => {
+      this.editPostButton.nativeElement.click();
+    });
   }
 
   ngOnInit() {
-    this.commonService.editPost$.subscribe(() => {
-      this.post = this.commonService.postToEdit;
+    this._commonService.editPost$.subscribe(() => {
+      this.post = this._commonService.postToEdit;
     });
   }
 
   /**
-   * Metoda służy do przygotowania posta z danych wprowadzonych w formularzu
+   * Metoda służy do dodania posta z danych wprowadzonych w formularzu
    */
   addPost() {
-    if (this.post._id) {
-      this._postService.editPost(this.post, this.post._id)
-        .subscribe(() => {
-          this.closeButton.nativeElement.click();
-          this.commonService.emitPostAdd();
-          this.commonService.postToEdit = null;
-        });
-    } else {
-      this._postService.addPost(this.post)
-        .subscribe(() => {
-          this.closeButton.nativeElement.click();
-          this.commonService.emitPostAdd();
-        });
-    }
+    this._postService.addPost(this.post)
+      .subscribe(() => {
+        this.closeButton.nativeElement.click();
+        this._commonService.emitPostAdd();
+      });
+  }
+
+  /**
+   * Metoda służy do zedytowania posta
+   */
+  editPost() {
+    this._postService.editPost(this.post, this.post._id)
+      .subscribe(() => {
+        this.closeButton.nativeElement.click();
+        this._commonService.emitPostAdd();
+        this._commonService.postToEdit = null;
+      });
   }
 
 }
