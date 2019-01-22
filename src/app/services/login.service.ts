@@ -13,7 +13,7 @@ export class LoginService {
    * Metoda służy do pobrania użytkowników z bazy
    */
   getUsers() {
-    return this._httpClient.get('api/users');
+    return this._httpClient.get('https://mkablog.herokuapp.com/api/users');
   }
 
 }

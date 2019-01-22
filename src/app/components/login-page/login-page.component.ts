@@ -53,11 +53,11 @@ export class LoginPageComponent implements OnInit {
             localStorage.setItem('loggedUser', this._user.username);
             this._router.navigate([ 'app/home' ]);
             return;
+          } else {
+            this._wrongCredentials = true;
           }
         }
       });
-
-    this._wrongCredentials = true;
   }
 
   /**

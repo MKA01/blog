@@ -13,7 +13,7 @@ export class RegisterService {
    * Metoda służy do pobrania wszystkich użytkowników z bazy
    */
   getUsers() {
-    return this._httpClient.get('api/users');
+    return this._httpClient.get('https://mkablog.herokuapp.com/api/users');
   }
 
   /**
@@ -21,6 +21,6 @@ export class RegisterService {
    * @param user - użytkownik do dodania
    */
   registerUser(user: User) {
-    return this._httpClient.post('api/users', user);
+    return this._httpClient.post('https://mkablog.herokuapp.com/api/users', user);
   }
 }
