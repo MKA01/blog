@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector : 'app-app-container',
@@ -8,10 +9,11 @@ import { Router } from '@angular/router';
 })
 export class AppContainerComponent implements OnInit {
 
-  constructor(private _router: Router) { }
+  constructor(private _loginService: LoginService,
+              private _router: Router) { }
 
   ngOnInit() {
-    if (!localStorage.getItem('loggedInUser')) {
+    if (!localStorage.getItem('loggedUser')) {
       this._router.navigate([ 'app/login' ]);
     }
   }
@@ -20,7 +22,7 @@ export class AppContainerComponent implements OnInit {
    * Metoda służy do wylogowania użytkownika
    */
   private _logOutButtonClick() {
-    localStorage.removeItem('loggedInUser');
+    localStorage.removeItem('loggedUser');
     this._router.navigate([ 'login' ]);
   }
 

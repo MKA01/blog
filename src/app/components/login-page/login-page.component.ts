@@ -18,15 +18,16 @@ export class LoginPageComponent implements OnInit {
   private _secondNumber: number;
   private _users: User[];
 
-  constructor(private _loginService: LoginService, private _router: Router) {
+  constructor(private _loginService: LoginService,
+              private _router: Router) {
     this._user = new User();
   }
 
   ngOnInit(): void {
     this._wrongCaptcha = false;
     this._wrongCredentials = false;
-    this._firstNumber = Math.floor(Math.random() * 10);
-    this._secondNumber = Math.floor(Math.random() * 10);
+    this._firstNumber = Math.floor(Math.random() * 5 + 1);
+    this._secondNumber = Math.floor(Math.random() * 5 + 1);
   }
 
   /**
@@ -49,15 +50,14 @@ export class LoginPageComponent implements OnInit {
         this._users = response;
         for (let i = 0; i < this._users.length; i++) {
           if (this._users[ i ].username === this._user.username && this._users[ i ].password === this._user.password) {
-            this._loginService.isLogged = true;
             localStorage.setItem('loggedUser', this._user.username);
             this._router.navigate([ 'app/home' ]);
             return;
           }
         }
-
-        this._wrongCredentials = true;
       });
+
+    this._wrongCredentials = true;
   }
 
   /**

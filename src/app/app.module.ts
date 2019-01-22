@@ -16,6 +16,7 @@ import { RegisterPageComponent } from './components/register-page/register-page.
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { LoginService } from './services/login.service';
 import { AppContainerComponent } from './components/app-container/app-container.component';
+import { AuthGuardService } from './services/auth-guard.service';
 
 @NgModule({
   declarations : [
@@ -40,6 +41,7 @@ import { AppContainerComponent } from './components/app-container/app-container.
   providers : [
     CommonService,
     LoginService,
+    AuthGuardService,
     { provide : LocationStrategy, useClass : HashLocationStrategy } ],
   bootstrap : [ AppComponent ]
 })

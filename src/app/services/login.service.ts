@@ -1,21 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-@Injectable()
+@Injectable({
+  providedIn : 'root'
+})
 export class LoginService {
 
   constructor(private _httpClient: HttpClient) {
-    // this._isLogged = true; // TODO: Wyrzucić to
-  }
-
-  private _isLogged: boolean;
-
-  get isLogged(): boolean {
-    return this._isLogged;
-  }
-
-  set isLogged(value: boolean) {
-    this._isLogged = value;
   }
 
   /**

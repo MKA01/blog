@@ -1,13 +1,14 @@
 import { RouterModule, Routes } from '@angular/router';
-import { ModuleWithProviders } from '@angular/core/src/metadata/ng_module';
+import { NgModule } from '@angular/core';
 
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { HomeComponent } from './components/home/home.component';
 import { RegisterPageComponent } from './components/register-page/register-page.component';
-import { AuthGuardService } from './services/auth/auth-guard.service';
+import { AuthGuardService } from './services/auth-guard.service';
 import { AppContainerComponent } from './components/app-container/app-container.component';
+import { CommonModule } from '@angular/common';
 
-export const AppRoutes: Routes = [
+const routes: Routes = [
   {
     path : 'login',
     component : LoginPageComponent
@@ -43,4 +44,16 @@ export const AppRoutes: Routes = [
   }
 ];
 
-export const AppRouting: ModuleWithProviders = RouterModule.forRoot(AppRoutes, { useHash : true, onSameUrlNavigation : 'reload' });
+@NgModule({
+  imports : [
+    CommonModule,
+    RouterModule.forRoot(routes, { useHash : true, onSameUrlNavigation : 'reload' })
+  ],
+  exports : [
+    RouterModule
+  ]
+})
+
+export class AppRouting {
+
+}
