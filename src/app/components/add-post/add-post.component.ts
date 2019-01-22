@@ -35,7 +35,6 @@ export class AddPostComponent implements OnInit {
   addPost() {
     this._postService.addPost(this.post)
       .subscribe(() => {
-        this.closeButton.nativeElement.click();
         this._commonService.emitPostAdd();
       });
   }
