@@ -13,7 +13,7 @@ export class ShowPostComponent implements OnInit {
 
   @ViewChild('closeButton') closeButton: ElementRef;
 
-  public posts: Post[];
+  public posts: Post[] = [];
   public postToDelete: Post;
 
   constructor(private _postService: PostService, private commonService: CommonService) {
