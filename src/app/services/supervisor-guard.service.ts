@@ -10,6 +10,6 @@ export class SupervisorGuardService implements CanActivate {
   constructor() { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    return localStorage.getItem('supervisor') !== '0';
+    return localStorage.getItem('supervisor') === '1';
   }
 }
