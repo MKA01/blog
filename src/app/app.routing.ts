@@ -9,6 +9,7 @@ import { AppContainerComponent } from './components/app-container/app-container.
 import { CommonModule } from '@angular/common';
 import { ContactMeComponent } from './components/contact-me/contact-me.component';
 import { AdminPageComponent } from './components/admin-page/admin-page.component';
+import { SupervisorGuardService } from './services/supervisor-guard.service';
 
 const routes: Routes = [
   {
@@ -39,6 +40,7 @@ const routes: Routes = [
       },
       {
         path : 'admin',
+        canActivate : [ SupervisorGuardService ],
         component : AdminPageComponent
       }
     ]
