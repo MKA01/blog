@@ -1,0 +1,62 @@
+<form class=" container text-center p-5"
+      #contactForm="ngForm"
+      [formGroup]="_contactMeForm"
+      (ngSubmit)="onSubmit()">
+
+  <p class="h4 mb-4">
+    Skontaktuj się
+  </p>
+
+  <input class="form-control mb-4"
+         type="text"
+         formControlName="name"
+         id="name"
+         placeholder="Imię"
+         required>
+
+  <input class="form-control mb-4"
+         type="email"
+         formControlName="email"
+         id="email"
+         placeholder="E-mail"
+         required>
+
+  <label for="subject"></label>
+  <select class="browser-default custom-select mb-4"
+          formControlName="subject"
+          id="subject"
+          required>
+    <option value="" disabled>
+      Wybierz powód kontaktu
+    </option>
+    <option value="1" selected>
+      Opinia
+    </option>
+    <option value="2">
+      Zgłoszenie błędu
+    </option>
+    <option value="3">
+      Prośba o nową funkcjonalność
+    </option>
+    <option value="4">
+      Inne
+    </option>
+  </select>
+
+  <div class="form-group">
+    <textarea class="form-control rounded-0"
+              formControlName="message"
+              id="message"
+              rows="4"
+              placeholder="Wiadomość"
+              required>
+    </textarea>
+  </div>
+
+  <button class="btn btn-primary submit-button"
+          type="submit"
+          [disabled]="!contactForm.form.valid">
+    Wyślij
+  </button>
+
+</form>

@@ -7,6 +7,7 @@ import { RegisterPageComponent } from './components/register-page/register-page.
 import { AuthGuardService } from './services/auth-guard.service';
 import { AppContainerComponent } from './components/app-container/app-container.component';
 import { CommonModule } from '@angular/common';
+import { ContactMeComponent } from './components/contact-me/contact-me.component';
 
 const routes: Routes = [
   {
@@ -30,6 +31,11 @@ const routes: Routes = [
       {
         path : 'home',
         component : HomeComponent
+      },
+      {
+        path : 'contact',
+        component : ContactMeComponent
+      },
       }
     ]
   },

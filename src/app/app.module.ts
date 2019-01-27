@@ -17,6 +17,8 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { LoginService } from './services/login.service';
 import { AppContainerComponent } from './components/app-container/app-container.component';
 import { AuthGuardService } from './services/auth-guard.service';
+import { ContactMeComponent } from './components/contact-me/contact-me.component';
+import { PostService } from './services/post.service';
 
 @NgModule({
   declarations : [
@@ -27,6 +29,8 @@ import { AuthGuardService } from './services/auth-guard.service';
     AddPostComponent,
     RegisterPageComponent,
     AppContainerComponent
+    AppContainerComponent,
+    ContactMeComponent,
   ],
   imports : [
     BrowserModule,
@@ -37,11 +41,14 @@ import { AuthGuardService } from './services/auth-guard.service';
     MatButtonModule,
     MatCheckboxModule,
     MatToolbarModule
+    MatToolbarModule,
+    ReactiveFormsModule
   ],
   providers : [
     CommonService,
     LoginService,
     AuthGuardService,
+    PostService,
     { provide : LocationStrategy, useClass : HashLocationStrategy } ],
   bootstrap : [ AppComponent ]
 })
