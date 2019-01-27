@@ -34,6 +34,7 @@ export class AddPostComponent {
     this._postService.addPost(this.post)
       .subscribe(() => {
         this._commonService.emitPostAdd();
+        this._addPostForm.reset();
       });
   }
 
