@@ -1,3 +1,42 @@
+<div class="margin bg-transparent">
+  <form #searchBarForm="ngForm"
+        (ngSubmit)="searchByTag()"
+        [formGroup]="_searchBar"
+        class="add-form">
+
+    <div class="input-group">
+      <input class="form-control input"
+             formControlName="tag"
+             id="tag"
+             name="tag"
+             placeholder="Wyszukaj po tagu"
+             required
+             type="text">
+
+      <span class="input-group-btn">
+
+            <button [disabled]="!searchBarForm.form.valid"
+                    class="material-icons btn btn-success btn-block"
+                    title="Wyszukaj"
+                    type="submit">
+              search
+            </button>
+          </span>
+
+      <span class="input-group-btn">
+            <button (click)="resetTags()"
+                    class="material-icons btn btn-danger btn-block"
+                    title="Wyczyść tag">
+              cancel
+            </button>
+          </span>
+
+    </div>
+  </form>
+</div>
+
+<br>
+
 <div class="list-group margin">
 
   <a *ngFor="let post of posts" class="list-group-item list-group-item-action flex-column align-items-start">
@@ -10,6 +49,8 @@
 
     <div class="d-flex w-100 justify-content-between">
       <small>Autor: {{post.user}}</small>
+
+      <small>Tagi: {{post.tags}}</small>
     </div>
   </a>
 

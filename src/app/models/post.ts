@@ -4,4 +4,5 @@ export class Post {
   description: string;
   user: string;
   createDate: string;
+  tags: string[];
 }

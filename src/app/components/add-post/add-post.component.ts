@@ -20,7 +20,8 @@ export class AddPostComponent {
               private _formBuilder: FormBuilder) {
     this._addPostForm = _formBuilder.group({
       'title' : [ '', Validators.required ],
-      'description' : [ '', Validators.required ]
+      'description' : [ '', Validators.required ],
+      'tags' : [ '', Validators.required ]
     });
   }
 
@@ -31,6 +32,7 @@ export class AddPostComponent {
     this.post.title = this._addPostForm.get('title').value;
     this.post.description = this._addPostForm.get('description').value;
     this.post.user = localStorage.getItem('loggedUser');
+    this.post.tags = this._addPostForm.get('tags').value.split(',');
 
     this._postService.addPost(this.post)
       .subscribe(() => {
