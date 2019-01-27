@@ -4,6 +4,7 @@
 
       <form #addPostForm="ngForm"
             (ngSubmit)="addPost()"
+            [formGroup]="_addPostForm"
             class="add-form">
 
         <div class="form-group form-inline">
