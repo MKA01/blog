@@ -8,6 +8,7 @@ import { AuthGuardService } from './services/auth-guard.service';
 import { AppContainerComponent } from './components/app-container/app-container.component';
 import { CommonModule } from '@angular/common';
 import { ContactMeComponent } from './components/contact-me/contact-me.component';
+import { AdminPageComponent } from './components/admin-page/admin-page.component';
 
 const routes: Routes = [
   {
@@ -36,6 +37,9 @@ const routes: Routes = [
         path : 'contact',
         component : ContactMeComponent
       },
+      {
+        path : 'admin',
+        component : AdminPageComponent
       }
     ]
   },

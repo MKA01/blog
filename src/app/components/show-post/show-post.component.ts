@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PostService } from '../../services/post.service';
 import { Post } from '../../models/post';
 import { CommonService } from '../../services/common.service';
@@ -6,41 +6,21 @@ import { CommonService } from '../../services/common.service';
 @Component({
   selector : 'app-show-post',
   templateUrl : './show-post.component.html',
-  styleUrls : [ './show-post.component.css' ],
-  providers : [ PostService ]
+  styleUrls : [ './show-post.component.css' ]
 })
 export class ShowPostComponent implements OnInit {
 
-  @ViewChild('closeButton') closeButton: ElementRef;
-
   public posts: Post[] = [];
-  public postToDelete: Post;
 
-  constructor(private _postService: PostService, private commonService: CommonService) {
-
+  constructor(private _postService: PostService, private _commonService: CommonService) {
   }
 
   ngOnInit() {
     this.getPosts();
 
-    this.commonService.addPost$.subscribe(() => {
+    this._commonService.addPost$.subscribe(() => {
       this.getPosts();
     });
-  }
-
-  /**
-   * Metoda służy do przygotowania posta do usunięcia
-   * @param post - post do usunięcia
-   */
-  setPostToDelete(post: Post) {
-    this.postToDelete = post;
-  }
-
-  /**
-   * Metoda służy do wyczyszczenia posta do usunięcia po kliknięciu przycisku anuluj
-   */
-  cancelPostDelete() {
-    this.postToDelete = null;
   }
 
   /**
@@ -52,23 +32,4 @@ export class ShowPostComponent implements OnInit {
         this.posts = response;
       });
   }
-
-  /**
-   * Metoda służy do edytowania postu
-   * @param post - post do edycji
-   */
-  editPost(post: Post) {
-    this.commonService.setPostToEdit(post);
-  }
-
-  /**
-   * Metoda służy do usunięcia posta
-   */
-  deletePost() {
-    this._postService.deletePost(this.postToDelete._id).subscribe(() => {
-      this.getPosts();
-      this.closeButton.nativeElement.click();
-    });
-  }
-
 }

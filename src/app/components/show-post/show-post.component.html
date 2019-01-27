@@ -10,47 +10,8 @@
 
     <div class="d-flex w-100 justify-content-between">
       <small>Autor: {{post.user}}</small>
-
-      <div>
-        <i (click)="editPost(post)" aria-hidden="true" class="fas fa-edit" title="Edytuj"></i>
-        <i (click)="setPostToDelete(post)" aria-hidden="true" class="fas fa-trash-alt" data-target="#deleteModal"
-           data-toggle="modal" title="Usuń"></i>
-      </div>
-
     </div>
   </a>
 
 </div>
 
-<!--Okno dialogowe usuwania postu-->
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Skasuj post</h5>
-
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-
-      </div>
-
-      <div class="modal-body">
-        Czy na pewno chcesz usunąć wybrany post?
-      </div>
-
-      <div class="modal-footer">
-
-        <button #closeButton (click)="cancelPostDelete()" type="button" class="btn btn-secondary" data-dismiss="modal">
-          Anuluj
-
-        </button>
-        <button (click)="deletePost()" type="button" class="btn btn-primary">
-          Skasuj
-        </button>
-
-      </div>
-    </div>
-  </div>
-</div>

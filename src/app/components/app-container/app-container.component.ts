@@ -33,4 +33,18 @@ export class AppContainerComponent implements OnInit {
     this._router.navigate([ 'app/home' ]);
   }
 
+  /**
+   * Metoda służy do przeniesienia użytkownika do formularza kontaktowego
+   */
+  private _contactButtonClick() {
+    this._router.navigate([ 'app/contact' ]);
+  }
+
+  /**
+   * Metoda służy do przedniesienia użytkownika do panelu administratora
+   */
+  private _adminButtonClicked() {
+    this._router.navigate([ 'app/admin' ]);
+  }
+
 }

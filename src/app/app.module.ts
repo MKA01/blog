@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRouting } from './app.routing';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
@@ -18,6 +18,7 @@ import { LoginService } from './services/login.service';
 import { AppContainerComponent } from './components/app-container/app-container.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { ContactMeComponent } from './components/contact-me/contact-me.component';
+import { AdminPageComponent } from './components/admin-page/admin-page.component';
 import { PostService } from './services/post.service';
 
 @NgModule({
@@ -28,9 +29,9 @@ import { PostService } from './services/post.service';
     ShowPostComponent,
     AddPostComponent,
     RegisterPageComponent,
-    AppContainerComponent
     AppContainerComponent,
     ContactMeComponent,
+    AdminPageComponent
   ],
   imports : [
     BrowserModule,
@@ -40,7 +41,6 @@ import { PostService } from './services/post.service';
     BrowserAnimationsModule,
     MatButtonModule,
     MatCheckboxModule,
-    MatToolbarModule
     MatToolbarModule,
     ReactiveFormsModule
   ],
