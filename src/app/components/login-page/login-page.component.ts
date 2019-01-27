@@ -51,7 +51,7 @@ export class LoginPageComponent implements OnInit {
         for (let i = 0; i < this._users.length; i++) {
           if (this._users[ i ].username === this._user.username && this._users[ i ].password === this._user.password) {
             localStorage.setItem('loggedUser', this._user.username);
-            if (this._user.supervisor) {
+            if (this._users[ i ].supervisor) {
               localStorage.setItem('supervisor', '1');
             } else {
               localStorage.setItem('supervisor', '0');
