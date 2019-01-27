@@ -30,6 +30,7 @@ export class AddPostComponent {
   addPost() {
     this.post.title = this._addPostForm.get('title').value;
     this.post.description = this._addPostForm.get('description').value;
+    this.post.user = localStorage.getItem('loggedUser');
 
     this._postService.addPost(this.post)
       .subscribe(() => {
