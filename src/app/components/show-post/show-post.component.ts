@@ -42,7 +42,7 @@ export class ShowPostComponent implements OnInit {
         } else {
           for (let i = 0; i < response.length; i++) {
             for (let j = 0; j < response[ i ].tags.length; j++) {
-              if (response[ i ].tags[ j ] === tag) {
+              if (response[ i ].tags[ j ].toLocaleLowerCase().includes(tag.toLocaleLowerCase())) {
                 this.posts.push(response[ i ]);
                 break;
               }
