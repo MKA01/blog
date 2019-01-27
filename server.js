@@ -141,6 +141,7 @@ app.get("/api/users", cors(corsOptions), function (req, res) {
 app.post("/api/users", cors(corsOptions), function (req, res) {
   let newUser = req.body;
   newUser.registerDate = new Date().toLocaleString();
+  newUser.supervisor = false;
 
   if (!req.body.username && !req.body.password) {
     handleError(res, "Invalid user input", "Must provide a username and password.", 400);

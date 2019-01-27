@@ -95,7 +95,7 @@ export class AdminPageComponent implements OnInit {
   editPost() {
     this._postService.editPost(this.post, this.post._id)
       .subscribe(() => {
-        this.closeButton1.nativeElement.click();
+        this.closeButton.nativeElement.click();
         this._commonService.emitPostAdd();
         this._commonService.postToEdit = null;
       });
