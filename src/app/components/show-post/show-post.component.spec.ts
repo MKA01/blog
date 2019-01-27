@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ShowPostComponent } from './show-post.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PostService } from '../../services/post.service';
+import { HttpClientModule } from '@angular/common/http';
+import { CommonService } from '../../services/common.service';
 
 describe('ShowPostComponent', () => {
   let component: ShowPostComponent;
@@ -8,7 +12,18 @@ describe('ShowPostComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations : [ ShowPostComponent ]
+      imports : [
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule
+      ],
+      declarations : [
+        ShowPostComponent
+      ],
+      providers : [
+        PostService,
+        CommonService
+      ]
     })
       .compileComponents();
   }));
