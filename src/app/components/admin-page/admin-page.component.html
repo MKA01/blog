@@ -1,72 +1,82 @@
 <br>
 
-<div class="container">
-  <div class="list-group margin">
+<ng-container *ngIf="this.posts.length">
+  <ng-container *ngFor="let post of posts">
+    <ng-container *ngIf="post !== undefined">
 
-    <a *ngFor="let post of posts"
-       class="list-group-item list-group-item-action flex-column align-items-start">
-      <div class="d-flex w-100 justify-content-between">
+      <div class="container">
+        <div class="list-group margin">
 
-        <h5 class="mb-1">
-          {{post.title}}
-        </h5>
+          <a class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
 
-        <small>
-          {{post.createDate}}
-        </small>
+              <h5 class="mb-1">
+                {{post.title}}
+              </h5>
 
-      </div>
+              <small>
+                {{post.createDate}}
+              </small>
 
-      <p class="mb-1">{{post.description}}</p>
+            </div>
 
-      <div class="d-flex w-100 justify-content-between">
-        <small>
-          Autor: {{post.user}}
-        </small>
+            <p class="mb-1">{{post.description}}</p>
 
-        <div>
-          <button (click)="setEditPost(post)"
-                  class="material-icons btn btn-primary"
-                  title="Edytuj post">
-            edit
-          </button>
-          <button (click)="setPostToDelete(post)"
-                  class="material-icons btn btn-danger"
-                  data-target="#deleteModal"
-                  data-toggle="modal"
-                  title="Usuń post">
-            delete
-          </button>
+            <div class="d-flex w-100 justify-content-between">
+              <small>
+                Autor: {{post.user}}
+              </small>
+
+              <div>
+                <button (click)="setEditPost(post)"
+                        class="material-icons btn btn-primary"
+                        title="Edytuj post">
+                  edit
+                </button>
+                <button (click)="setPostToDelete(post)"
+                        class="material-icons btn btn-danger"
+                        data-target="#deleteModal"
+                        data-toggle="modal"
+                        title="Usuń post">
+                  delete
+                </button>
+              </div>
+
+            </div>
+          </a>
+
         </div>
-
       </div>
-    </a>
-
-  </div>
-</div>
-
+    </ng-container>
+  </ng-container>
+</ng-container>
 <br>
 
-<div class="container">
-  <div class="list-group margin">
+<ng-container *ngIf="this.users.length">
+  <ng-container *ngFor="let user of users">
+    <ng-container *ngIf="user !== undefined">
+      <div class="container">
+        <div class="list-group margin">
 
-    <a *ngFor="let user of users"
-       class="list-group-item list-group-item-action flex-column align-items-start">
-      <div class="d-flex w-100 justify-content-between">
+          <a class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
 
-        <h5 class="mb-1">
-          {{user.username}}
-        </h5>
+              <h5 class="mb-1">
+                {{user.username}}
+              </h5>
 
-        <small>
-          {{user.registerDate}}
-        </small>
+              <small>
+                {{user.registerDate}}
+              </small>
 
+            </div>
+          </a>
+
+        </div>
       </div>
-    </a>
-
-  </div>
-</div>
+    </ng-container>
+  </ng-container>
+</ng-container>
 
 <!--Okno dialogowe usuwania postu-->
 <div class="modal fade"

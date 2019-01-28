@@ -37,39 +37,42 @@
 
 <br>
 
-<div class="list-group margin">
+<ng-container *ngIf="posts.length">
+  <ng-container *ngFor="let post of posts">
+    <ng-container *ngIf="post !== undefined">
+      <div class="list-group margin">
+        <a class="list-group-item list-group-item-action flex-column align-items-start"
+           (click)="goToPost(post)">
 
-  <a *ngFor="let post of posts"
-     class="list-group-item list-group-item-action flex-column align-items-start"
-     (click)="goToPost(post)">
+          <div class="d-flex w-100 justify-content-between">
 
-    <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">
+              {{post.title}}
+            </h5>
 
-      <h5 class="mb-1">
-        {{post.title}}
-      </h5>
+            <small>
+              {{post.createDate}}
+            </small>
 
-      <small>
-        {{post.createDate}}
-      </small>
+          </div>
 
-    </div>
-
-    <p class="mb-1">
-      {{post.description}}
-    </p>
+          <p class="mb-1">
+            {{post.description}}
+          </p>
 
 
-    <div class="d-flex w-100 justify-content-between">
-      <small>
-        Autor: {{post.user}}
-      </small>
+          <div class="d-flex w-100 justify-content-between">
+            <small>
+              Autor: {{post.user}}
+            </small>
 
-      <small>
-        Tagi: {{post.tags}}
-      </small>
-    </div>
-  </a>
+            <small>
+              Tagi: {{post.tags}}
+            </small>
+          </div>
+        </a>
 
-</div>
-
+      </div>
+    </ng-container>
+  </ng-container>
+</ng-container>

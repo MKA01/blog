@@ -3,7 +3,6 @@ import { PostService } from '../../services/post.service';
 import { Post } from '../../models/post';
 import { ActivatedRoute } from '@angular/router';
 import { PostComment } from '../../models/post-comment';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonService } from '../../services/common.service';
 
 @Component({
@@ -13,23 +12,17 @@ import { CommonService } from '../../services/common.service';
 })
 export class PostComponent implements OnInit {
 
-  @ViewChild('closeButton1') closeButton1: ElementRef;
-  @ViewChild('closeButton') closeButton: ElementRef;
   @ViewChild('editCommentButton') editCommentButton: ElementRef;
-  post: Post = <Post>{};
-  comments: PostComment[] = [];
+  @ViewChild('closeButton') closeButton: ElementRef;
+  @ViewChild('closeButton1') closeButton1: ElementRef;
+  public post: Post = <Post>{};
+  public postComments: PostComment[] = [];
   public commentToDelete: PostComment;
-  public comment: PostComment = new PostComment();
-  private _addCommentForm: FormGroup;
+  public postComment: PostComment = <PostComment>{};
 
   constructor(private _postService: PostService,
               private _activatedRoute: ActivatedRoute,
-              private _commonService: CommonService,
-              private _formBuilder: FormBuilder) {
-    this._addCommentForm = _formBuilder.group({
-      'description' : [ '', Validators.required ]
-    });
-  }
+              private _commonService: CommonService) {}
 
   ngOnInit() {
     this._downloadPostDetail();
@@ -37,21 +30,6 @@ export class PostComponent implements OnInit {
     this._commonService.addComment$.subscribe(() => {
       this._downloadPostDetail();
     });
-  }
-
-  /**
-   * Metoda służy do dodania posta z danych wprowadzonych w formularzu
-   */
-  addComment() {
-    this.comment.description = this._addCommentForm.get('description').value;
-    this.comment.user = localStorage.getItem('loggedUser');
-    this.comment.postId = this.post._id;
-
-    this._postService.addComment(this.comment)
-      .subscribe(() => {
-        this._commonService.emitPostAdd();
-        this._addCommentForm.reset();
-      });
   }
 
   /**
@@ -91,7 +69,7 @@ export class PostComponent implements OnInit {
    * Metoda służy do zedytowania komentarza
    */
   editComment() {
-    this._postService.editComment(this.comment, this.comment._id)
+    this._postService.editComment(this.postComment, this.postComment._id)
       .subscribe(() => {
         this.closeButton.nativeElement.click();
         this._commonService.emitCommentAdd();
@@ -117,7 +95,7 @@ export class PostComponent implements OnInit {
   private _downloadPostComments(postId: string) {
     this._postService.loadComments()
       .subscribe((comments: PostComment[]) => {
-        this.comments.push(comments.find(el => el.postId === postId));
+        this.postComments.push(comments.find(el => el.postId === postId));
       });
   }
 }

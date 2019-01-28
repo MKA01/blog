@@ -30,81 +30,52 @@
     </div>
   </div>
 
+  <ng-container *ngIf="this.postComments.length">
+    <ng-container *ngFor="let postComment of postComments">
+      <ng-container *ngIf="postComment !== undefined">
+        <div class="list-group margin">
 
-  <div class="list-group margin">
+          <a class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
 
-    <a *ngFor="let comment of comments"
-       class="list-group-item list-group-item-action flex-column align-items-start">
-      <div class="d-flex w-100 justify-content-between">
+              <small>
+                {{postComment.createDate}}
+              </small>
 
-        <small>
-          {{comment.createDate}}
-        </small>
+            </div>
 
-      </div>
+            <p class="mb-1">{{postComment.description}}</p>
 
-      <p class="mb-1">{{comment.description}}</p>
+            <div class="d-flex w-100 justify-content-between">
+              <small>
+                Autor: {{postComment.user}}
+              </small>
 
-      <div class="d-flex w-100 justify-content-between">
-        <small>
-          Autor: {{comment.user}}
-        </small>
+              <div>
+                <button (click)="setEditComment(postComment)"
+                        class="material-icons btn btn-primary"
+                        title="Edytuj post">
+                  edit
+                </button>
+                <button (click)="setCommentToDelete(postComment)"
+                        class="material-icons btn btn-danger"
+                        data-target="#deleteModal"
+                        data-toggle="modal"
+                        title="Usuń post">
+                  delete
+                </button>
+              </div>
 
-        <div>
-          <button (click)="setEditComment(comment)"
-                  class="material-icons btn btn-primary"
-                  title="Edytuj post">
-            edit
-          </button>
-          <button (click)="setCommentToDelete(comment)"
-                  class="material-icons btn btn-danger"
-                  data-target="#deleteModal"
-                  data-toggle="modal"
-                  title="Usuń post">
-            delete
-          </button>
+            </div>
+          </a>
+
         </div>
-
-      </div>
-    </a>
-
-  </div>
+      </ng-container>
+    </ng-container>
+  </ng-container>
 </div>
 
-
-<div class="list-group margin bg-transparent">
-  <div class="list-group-item flex-column align-items-start bg-transparent">
-    <div class="d-flex w-100 justify-content-between">
-
-      <form #addCommentForm="ngForm"
-            (ngSubmit)="addComment()"
-            [formGroup]="_addCommentForm"
-            class="add-form">
-
-        <div class="form-group form-inline">
-          <textarea class="form-control"
-                    formControlName="description"
-                    id="description"
-                    name="description"
-                    placeholder="Wprowadź opis"
-                    required
-                    rows="6"
-                    type="text">
-          </textarea>
-        </div>
-
-        <button [disabled]="!addCommentForm.form.valid"
-                class="btn btn-primary btn-block submit-button"
-                type="submit">
-          Dodaj post
-        </button>
-
-      </form>
-
-    </div>
-  </div>
-</div>
-
+<app-add-comment></app-add-comment>
 
 <!--Okno dialogowe usuwania komentarza-->
 <div class="modal fade"
@@ -201,7 +172,7 @@
             <label for="description-modal">
               Opis
             </label>
-            <textarea [(ngModel)]="comment.description"
+            <textarea [(ngModel)]="postComment.description"
                       class="form-control"
                       id="description-modal"
                       name="description"

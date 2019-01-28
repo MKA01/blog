@@ -21,6 +21,7 @@ import { ContactMeComponent } from './components/contact-me/contact-me.component
 import { AdminPageComponent } from './components/admin-page/admin-page.component';
 import { PostService } from './services/post.service';
 import { PostComponent } from './components/post/post.component';
+import { AddCommentComponent } from './components/add-comment/add-comment.component';
 
 @NgModule({
   declarations : [
@@ -33,7 +34,8 @@ import { PostComponent } from './components/post/post.component';
     AppContainerComponent,
     ContactMeComponent,
     AdminPageComponent,
-    PostComponent
+    PostComponent,
+    AddCommentComponent
   ],
   imports : [
     BrowserModule,

@@ -1,0 +1,32 @@
+<div class="list-group margin bg-transparent">
+  <div class="list-group-item flex-column align-items-start bg-transparent">
+    <div class="d-flex w-100 justify-content-between">
+
+      <form #addCommentForm="ngForm"
+            (ngSubmit)="addComment()"
+            [formGroup]="_addCommentForm"
+            class="add-form">
+
+        <div class="form-group form-inline">
+          <textarea class="form-control"
+                    formControlName="description"
+                    id="description"
+                    name="description"
+                    placeholder="Wprowadź opis"
+                    required
+                    rows="6"
+                    type="text">
+          </textarea>
+        </div>
+
+        <button [disabled]="!addCommentForm.form.valid"
+                class="btn btn-primary btn-block submit-button"
+                type="submit">
+          Dodaj komentarz
+        </button>
+
+      </form>
+
+    </div>
+  </div>
+</div>
