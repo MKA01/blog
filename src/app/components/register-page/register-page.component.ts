@@ -16,13 +16,13 @@ export class RegisterPageComponent implements OnInit {
   private _firstNumber: number;
   private _secondNumber: number;
   private _regex: string;
-  private _users: User[];
   private _user: User = new User();
 
   constructor(private _router: Router,
               private _userService: UserService) { }
 
   ngOnInit() {
+    this._user = new User();
     this._userExists = false;
     this._wrongCaptcha = false;
     this._wrongSymbols = false;
@@ -51,18 +51,13 @@ export class RegisterPageComponent implements OnInit {
 
     this._userService.getUsers()
       .subscribe((response: User[]) => {
-        this._users = response;
-        for (let i = 0; i < this._users.length; i++) {
-          if (this._users[ i ].username === this._user.username) {
-            this._userExists = true;
-            return;
-          }
-          if (!this._userExists) {
-            this._userService.registerUser(this._user)
-              .subscribe(() => {
-                this._backToLogin();
-              });
-          }
+        if (!response.find(el => el.username === this._user.username)) {
+          this._userService.registerUser(this._user)
+            .subscribe(() => {
+              this._backToLogin();
+            });
+        } else {
+          this._userExists = true;
         }
       });
   }
