@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PostService } from '../../services/post.service';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonService } from '../../services/common.service';
+import { MatCheckboxModule } from '@angular/material';
 
 describe('AdminPageComponent', () => {
   let component: AdminPageComponent;
@@ -15,7 +16,8 @@ describe('AdminPageComponent', () => {
       imports : [
         FormsModule,
         ReactiveFormsModule,
-        HttpClientModule
+        HttpClientModule,
+        MatCheckboxModule
       ],
       declarations : [
         AdminPageComponent

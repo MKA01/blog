@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PostService } from '../../services/post.service';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonService } from '../../services/common.service';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ShowPostComponent', () => {
   let component: ShowPostComponent;
@@ -15,7 +16,8 @@ describe('ShowPostComponent', () => {
       imports : [
         FormsModule,
         ReactiveFormsModule,
-        HttpClientModule
+        HttpClientModule,
+        RouterTestingModule
       ],
       declarations : [
         ShowPostComponent

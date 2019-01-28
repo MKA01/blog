@@ -1,6 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PostComponent } from './post.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { CommonService } from '../../services/common.service';
+import { AddCommentComponent } from '../add-comment/add-comment.component';
+import { PostService } from '../../services/post.service';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('PostComponent', () => {
   let component: PostComponent;
@@ -8,7 +14,20 @@ describe('PostComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations : [ PostComponent ]
+      imports : [
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        RouterTestingModule
+      ],
+      declarations : [
+        PostComponent,
+        AddCommentComponent
+      ],
+      providers : [
+        CommonService,
+        PostService
+      ]
     })
       .compileComponents();
   }));

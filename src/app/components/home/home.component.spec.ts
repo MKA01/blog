@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PostService } from '../../services/post.service';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonService } from '../../services/common.service';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -17,7 +18,8 @@ describe('HomeComponent', () => {
       imports : [
         FormsModule,
         ReactiveFormsModule,
-        HttpClientModule
+        HttpClientModule,
+        RouterTestingModule
       ],
       declarations : [
         HomeComponent,
