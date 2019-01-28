@@ -60,7 +60,7 @@ export class RegisterPageComponent implements OnInit {
           if (!this._userExists) {
             this._userService.registerUser(this._user)
               .subscribe(() => {
-                this._router.navigate([ 'login' ]);
+                this._backToLogin();
               });
           }
         }
