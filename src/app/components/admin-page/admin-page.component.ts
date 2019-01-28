@@ -12,10 +12,10 @@ import { CommonService } from '../../services/common.service';
 })
 export class AdminPageComponent implements OnInit {
 
-  @ViewChild('closeUserDeleteButton') closeUserDeleteButton: ElementRef;
+  @ViewChild('cancelUserDeleteButton') cancelUserDeleteButton: ElementRef;
   @ViewChild('closeUserEditButton') closeUserEditButton: ElementRef;
   @ViewChild('cancelPostDeleteButton') cancelPostDeleteButton: ElementRef;
-  @ViewChild('closeButton') closeButton: ElementRef;
+  @ViewChild('closeEditPostButton') closeEditPostButton: ElementRef;
   @ViewChild('editPostButton') editPostButton: ElementRef;
   @ViewChild('editUserButton') editUserButton: ElementRef;
   public posts: Post[] = [];
@@ -109,7 +109,7 @@ export class AdminPageComponent implements OnInit {
   editPost() {
     this._postService.editPost(this.post, this.post._id)
       .subscribe(() => {
-        this.closeButton.nativeElement.click();
+        this.closeEditPostButton.nativeElement.click();
         this._commonService.emitPostAdd();
         this._commonService.postToEdit = null;
       });
@@ -137,7 +137,7 @@ export class AdminPageComponent implements OnInit {
     this._userService.deleteUser(this.userToDelete._id)
       .subscribe(() => {
         this.getPosts();
-        this.closeUserDeleteButton.nativeElement.click();
+        this.cancelUserDeleteButton.nativeElement.click();
       });
   }
 
