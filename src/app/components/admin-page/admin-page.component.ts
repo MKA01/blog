@@ -136,7 +136,7 @@ export class AdminPageComponent implements OnInit {
   deleteUser() {
     this._userService.deleteUser(this.userToDelete._id)
       .subscribe(() => {
-        this.getPosts();
+        this.getUsers();
         this.cancelUserDeleteButton.nativeElement.click();
       });
   }

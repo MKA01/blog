@@ -27,6 +27,10 @@
                 Autor: {{post.user}}
               </small>
 
+              <small>
+                Tagi: {{post.tags}}
+              </small>
+
               <div>
                 <button (click)="setEditPost(post)"
                         class="material-icons btn btn-primary"
@@ -217,6 +221,21 @@
             </textarea>
           </div>
 
+          <div class="form-group">
+
+            <label for="tags-modal">
+              Tagi
+            </label>
+            <input [(ngModel)]="post.tags"
+                   aria-describedby="emailHelp"
+                   class="form-control"
+                   id="tags-modal"
+                   name="tags"
+                   placeholder="Wprowadź tagi (oddzielone przecinkiem)"
+                   required
+                   type="text">
+          </div>
+
           <button (click)="editPost()"
                   class="btn btn-primary"
                   type="button">
@@ -340,11 +359,10 @@
             <label for="supervisor-modal">
               Administrator
             </label>
-            <mat-checkbox [checked]="user.supervisor"
+            <mat-checkbox [(ngModel)]="user.supervisor"
                           class="form-control"
                           id="supervisor-modal"
-                          name="description"
-                          required>
+                          name="supervisor">
             </mat-checkbox>
           </div>
 
