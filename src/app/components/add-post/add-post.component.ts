@@ -34,6 +34,10 @@ export class AddPostComponent {
     this.post.user = localStorage.getItem('loggedUser');
     this.post.tags = this._addPostForm.get('tags').value.split(',');
 
+    for (let i = 0; i < this.post.tags.length; i++) {
+      this.post.tags[ i ] = this.post.tags[ i ].toLowerCase();
+    }
+
     this._postService.addPost(this.post)
       .subscribe(() => {
         this._commonService.emitPostAdd();

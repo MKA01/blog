@@ -43,10 +43,15 @@ export class ShowPostComponent implements OnInit {
           this.posts = response;
         } else {
           for (let i = 0; i < response.length; i++) {
-            for (let j = 0; j < response[ i ].tags.length; j++) {
-              if (response[ i ].tags[ j ].toLocaleLowerCase().includes(tag.toLocaleLowerCase())) {
+            if (response[ i ].tags.length === 0) {
+              if (response[ i ].tags[ 0 ] === tag.toLowerCase()) {
                 this.posts.push(response[ i ]);
-                break;
+              }
+            } else {
+              for (let j = 0; j < response[ i ].tags.length; j++) {
+                if (response[ i ].tags[ j ] === tag.toLowerCase()) {
+                  this.posts.push(response[ i ]);
+                }
               }
             }
           }
