@@ -57,7 +57,7 @@ app.get("/api/posts", function (req, res) {
 });
 
 /**
- * POST: create a new comment
+ * POST: create a new post
  */
 app.post("/api/posts", function (req, res) {
   let newPost = req.body;
@@ -68,7 +68,7 @@ app.post("/api/posts", function (req, res) {
   } else {
     db.collection(POSTS_COLLECTION).insertOne(newPost, function (err, doc) {
       if (err) {
-        handleError(res, err.message, "Failed to create new comment.");
+        handleError(res, err.message, "Failed to create new post.");
       } else {
         res.status(201).json(doc.ops[0]);
       }
@@ -77,12 +77,12 @@ app.post("/api/posts", function (req, res) {
 });
 
 /**
- * GET: find comment by id
+ * GET: find post by id
  */
 app.get("/api/posts/:id", function (req, res) {
   db.collection(POSTS_COLLECTION).findOne({_id: new ObjectID(req.params.id)}, function (err, doc) {
     if (err) {
-      handleError(res, err.message, "Failed to get comment");
+      handleError(res, err.message, "Failed to get post");
     } else {
       res.status(200).json(doc);
     }
@@ -90,7 +90,7 @@ app.get("/api/posts/:id", function (req, res) {
 });
 
 /**
- * PUT: update comment by id
+ * PUT: update post by id
  */
 app.put("/api/posts/:id", function (req, res) {
   let updatePost = req.body;
@@ -98,7 +98,7 @@ app.put("/api/posts/:id", function (req, res) {
 
   db.collection(POSTS_COLLECTION).replaceOne({_id: new ObjectID(req.params.id)}, updatePost, function (err, doc) {
     if (err) {
-      handleError(res, err.message, "Failed to update comment");
+      handleError(res, err.message, "Failed to update post");
     } else {
       updatePost._id = req.params.id;
       res.status(200).json(updatePost);
@@ -107,12 +107,12 @@ app.put("/api/posts/:id", function (req, res) {
 });
 
 /**
- * DELETE: delete comment by id
+ * DELETE: delete post by id
  */
 app.delete("/api/posts/:id", function (req, res) {
   db.collection(POSTS_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function (err, result) {
     if (err) {
-      handleError(res, err.message, "Failed to delete comment");
+      handleError(res, err.message, "Failed to delete post");
     } else {
       res.status(200).json(req.params.id);
     }
@@ -156,7 +156,7 @@ app.post("/api/users", function (req, res) {
 /**
  * PUT: update user by id
  */
-app.put("/api/comments/:id", function (req, res) {
+app.put("/api/users/:id", function (req, res) {
   let updateUser = req.body;
   delete updateUser._id;
 
@@ -173,7 +173,7 @@ app.put("/api/comments/:id", function (req, res) {
 /**
  * DELETE: delete user by id
  */
-app.delete("/api/comments/:id", function (req, res) {
+app.delete("/api/users/:id", function (req, res) {
   db.collection(USERS_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function (err, result) {
     if (err) {
       handleError(res, err.message, "Failed to delete user");
