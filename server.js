@@ -9,17 +9,13 @@ let USERS_COLLECTION = "users";
 let COMMENTS_COLLECTION = "comments";
 
 let app = express();
+app.use(cors());
 app.use(bodyParser.json());
 
 let distDir = __dirname + "/dist/";
 app.use(express.static(distDir));
 
 let db;
-
-let corsOptions = {
-  origin: '*',
-  optionsSuccessStatus: 200
-};
 
 /**
  * Connect to the database before starting the application server
@@ -50,7 +46,7 @@ function handleError(res, reason, message, code) {
 /**
  * GET: finds all posts
  */
-app.get("/api/posts", cors(corsOptions), function (req, res) {
+app.get("/api/posts", function (req, res, next) {
   db.collection(POSTS_COLLECTION).find({}).toArray(function (err, docs) {
     if (err) {
       handleError(res, err.message, "Failed to get posts.");
@@ -63,7 +59,7 @@ app.get("/api/posts", cors(corsOptions), function (req, res) {
 /**
  * POST: create a new comment
  */
-app.post("/api/posts", cors(corsOptions), function (req, res) {
+app.post("/api/posts", function (req, res, next) {
   let newPost = req.body;
   newPost.createDate = new Date().toLocaleString();
 
@@ -83,7 +79,7 @@ app.post("/api/posts", cors(corsOptions), function (req, res) {
 /**
  * GET: find comment by id
  */
-app.get("/api/posts/:id", cors(corsOptions), function (req, res) {
+app.get("/api/posts/:id", function (req, res, next) {
   db.collection(POSTS_COLLECTION).findOne({_id: new ObjectID(req.params.id)}, function (err, doc) {
     if (err) {
       handleError(res, err.message, "Failed to get comment");
@@ -96,7 +92,7 @@ app.get("/api/posts/:id", cors(corsOptions), function (req, res) {
 /**
  * PUT: update comment by id
  */
-app.put("/api/posts/:id", cors(corsOptions), function (req, res) {
+app.put("/api/posts/:id", function (req, res, next) {
   let updatePost = req.body;
   delete updatePost._id;
 
@@ -113,7 +109,7 @@ app.put("/api/posts/:id", cors(corsOptions), function (req, res) {
 /**
  * DELETE: delete comment by id
  */
-app.delete("/api/posts/:id", cors(corsOptions), function (req, res) {
+app.delete("/api/posts/:id", function (req, res, next) {
   db.collection(POSTS_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function (err, result) {
     if (err) {
       handleError(res, err.message, "Failed to delete comment");
@@ -126,7 +122,7 @@ app.delete("/api/posts/:id", cors(corsOptions), function (req, res) {
 /**
  * GET: find all users
  */
-app.get("/api/users", cors(corsOptions), function (req, res) {
+app.get("/api/users", function (req, res, next) {
   db.collection(USERS_COLLECTION).find({}).toArray(function (err, docs) {
     if (err) {
       handleError(res, err.message, "Failed to get users.");
@@ -139,7 +135,7 @@ app.get("/api/users", cors(corsOptions), function (req, res) {
 /**
  * POST: create new user
  */
-app.post("/api/users", cors(corsOptions), function (req, res) {
+app.post("/api/users", function (req, res, next) {
   let newUser = req.body;
   newUser.registerDate = new Date().toLocaleString();
   newUser.supervisor = false;
@@ -160,7 +156,7 @@ app.post("/api/users", cors(corsOptions), function (req, res) {
 /**
  * PUT: update user by id
  */
-app.put("/api/comments/:id", cors(corsOptions), function (req, res) {
+app.put("/api/comments/:id", function (req, res, next) {
   let updateUser = req.body;
   delete updateUser._id;
 
@@ -177,7 +173,7 @@ app.put("/api/comments/:id", cors(corsOptions), function (req, res) {
 /**
  * DELETE: delete user by id
  */
-app.delete("/api/comments/:id", cors(corsOptions), function (req, res) {
+app.delete("/api/comments/:id", function (req, res, next) {
   db.collection(USERS_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function (err, result) {
     if (err) {
       handleError(res, err.message, "Failed to delete user");
@@ -191,7 +187,7 @@ app.delete("/api/comments/:id", cors(corsOptions), function (req, res) {
 /**
  * GET: finds all comments
  */
-app.get("/api/comments", cors(corsOptions), function (req, res) {
+app.get("/api/comments", function (req, res, next) {
   db.collection(COMMENTS_COLLECTION).find({}).toArray(function (err, docs) {
     if (err) {
       handleError(res, err.message, "Failed to get comments.");
@@ -204,7 +200,7 @@ app.get("/api/comments", cors(corsOptions), function (req, res) {
 /**
  * POST: create a new comment
  */
-app.post("/api/comments", cors(corsOptions), function (req, res) {
+app.post("/api/comments", function (req, res, next) {
   let newComment = req.body;
   newComment.createDate = new Date().toLocaleString();
 
@@ -224,7 +220,7 @@ app.post("/api/comments", cors(corsOptions), function (req, res) {
 /**
  * PUT: update comment by id
  */
-app.put("/api/comments/:id", cors(corsOptions), function (req, res) {
+app.put("/api/comments/:id", function (req, res, next) {
   let updateComment = req.body;
   delete updateComment._id;
 
@@ -241,7 +237,7 @@ app.put("/api/comments/:id", cors(corsOptions), function (req, res) {
 /**
  * DELETE: delete comment by id
  */
-app.delete("/api/comments/:id", cors(corsOptions), function (req, res) {
+app.delete("/api/comments/:id", function (req, res, next) {
   db.collection(COMMENTS_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function (err, result) {
     if (err) {
       handleError(res, err.message, "Failed to delete comment");
