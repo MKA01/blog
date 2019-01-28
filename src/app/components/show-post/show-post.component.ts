@@ -51,6 +51,7 @@ export class ShowPostComponent implements OnInit {
               for (let j = 0; j < response[ i ].tags.length; j++) {
                 if (response[ i ].tags[ j ] === tag.toLowerCase()) {
                   this.posts.push(response[ i ]);
+                  break;
                 }
               }
             }

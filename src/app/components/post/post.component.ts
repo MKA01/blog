@@ -103,7 +103,11 @@ export class PostComponent implements OnInit {
     this.postComments = [];
     this._postService.loadComments()
       .subscribe((comments: PostComment[]) => {
-        this.postComments.push(comments.find(el => el.postId === postId));
+        for (let i = 0; i < comments.length; i++) {
+          if (comments[ i ].postId === postId) {
+            this.postComments.push(comments[ i ]);
+          }
+        }
       });
   }
 }
