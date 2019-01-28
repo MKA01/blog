@@ -22,13 +22,20 @@ export class PostComponent implements OnInit {
 
   constructor(private _postService: PostService,
               private _activatedRoute: ActivatedRoute,
-              private _commonService: CommonService) {}
+              private _commonService: CommonService) {
+    this._commonService.editComment$.subscribe(() => {
+      this.editCommentButton.nativeElement.click();
+    });
+    this._commonService.addComment$.subscribe(() => {
+      this._downloadPostDetail();
+    });
+  }
 
   ngOnInit() {
     this._downloadPostDetail();
 
-    this._commonService.addComment$.subscribe(() => {
-      this._downloadPostDetail();
+    this._commonService.editComment$.subscribe(() => {
+      this.postComment = this._commonService.commentToEdit;
     });
   }
 
@@ -93,6 +100,7 @@ export class PostComponent implements OnInit {
    * @param postId - id posta
    */
   private _downloadPostComments(postId: string) {
+    this.postComments = [];
     this._postService.loadComments()
       .subscribe((comments: PostComment[]) => {
         this.postComments.push(comments.find(el => el.postId === postId));

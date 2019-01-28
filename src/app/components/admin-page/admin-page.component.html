@@ -69,6 +69,26 @@
                 {{user.registerDate}}
               </small>
 
+              <mat-checkbox [checked]="user.supervisor"
+                            disabled>
+                Administrator
+              </mat-checkbox>
+
+              <div>
+                <button (click)="setEditUser(user)"
+                        class="material-icons btn btn-primary"
+                        title="Edytuj użytkownika">
+                  edit
+                </button>
+                <button (click)="setUserToDelete(user)"
+                        class="material-icons btn btn-danger"
+                        data-target="#deleteUserModal"
+                        data-toggle="modal"
+                        title="Usuń użytkownika">
+                  delete
+                </button>
+              </div>
+
             </div>
           </a>
 
@@ -111,7 +131,7 @@
 
       <div class="modal-footer">
 
-        <button #closeButton1
+        <button #cancelPostDeleteButton
                 (click)="cancelPostDelete()"
                 type="button"
                 class="btn btn-secondary"
@@ -198,6 +218,137 @@
           </div>
 
           <button (click)="editPost()"
+                  class="btn btn-primary"
+                  type="button">
+            Zapisz zmiany
+          </button>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--Okno dialogowe usuwania użytkownika-->
+<div class="modal fade"
+     id="deleteUserModal"
+     tabindex="-1"
+     role="dialog"
+     aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog"
+       role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"
+            id="exampleUserModalLabel">
+          Skasuj użytkownika
+        </h5>
+
+        <button type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close">
+          <span aria-hidden="true">
+            &times;
+          </span>
+        </button>
+
+      </div>
+
+      <div class="modal-body">
+        Czy na pewno chcesz usunąć wybranego użytkownika?
+      </div>
+
+      <div class="modal-footer">
+
+        <button #closeUserDeleteButton
+                (click)="cancelUserDelete()"
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal">
+          Anuluj
+        </button>
+
+        <button (click)="deleteUser()"
+                type="button"
+                class="btn btn-primary">
+          Skasuj
+        </button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<button #editUserButton
+        type="button"
+        style="display: none"
+        data-toggle="modal"
+        data-target="#exampleUserModal">
+  Edytuj użytkownika
+</button>
+
+<div aria-hidden="true"
+     aria-labelledby="editUserModal"
+     class="modal fade"
+     id="exampleUserModal"
+     role="dialog"
+     tabindex="-1">
+
+  <div class="modal-dialog"
+       role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <h5 class="modal-title"
+            id="editUserModal">
+          Edytuj użytkownika
+        </h5>
+
+        <button #closeUserEditButton
+                aria-label="Close"
+                class="close"
+                data-dismiss="modal"
+                type="button">
+          <span aria-hidden="true">
+            &times;
+          </span>
+
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+
+            <label for="username-modal">
+              Login
+            </label>
+            <input [(ngModel)]="user.username"
+                   aria-describedby="emailHelp"
+                   class="form-control"
+                   id="username-modal"
+                   name="title"
+                   placeholder="Wprowadź login"
+                   required
+                   type="text">
+          </div>
+
+          <div class="form-group">
+            <label for="supervisor-modal">
+              Administrator
+            </label>
+            <mat-checkbox [checked]="user.supervisor"
+                          class="form-control"
+                          id="supervisor-modal"
+                          name="description"
+                          required>
+            </mat-checkbox>
+          </div>
+
+          <button (click)="editUser()"
                   class="btn btn-primary"
                   type="button">
             Zapisz zmiany

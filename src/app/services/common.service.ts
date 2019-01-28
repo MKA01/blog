@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Post } from '../models/post';
 import { PostComment } from '../models/post-comment';
+import { User } from '../models/user';
 
 @Injectable()
 export class CommonService {
@@ -10,8 +11,11 @@ export class CommonService {
   public editPost$ = new Subject();
   public addComment$ = new Subject();
   public editComment$ = new Subject();
+  public addUser$ = new Subject();
+  public editUser$ = new Subject();
   public postToEdit;
   public commentToEdit;
+  public userToEdit;
 
   constructor() {
     this.postToEdit = new Post();
@@ -33,7 +37,7 @@ export class CommonService {
 
   /**
    * Metoda służy do pobrania posta do edycji
-   * @param post - comment do edycji
+   * @param post - post do edycji
    */
   setPostToEdit(post: Post) {
     this.postToEdit = post;
@@ -51,6 +55,19 @@ export class CommonService {
   setCommentToEdit(comment: PostComment) {
     this.commentToEdit = comment;
     this.emitCommentEdit();
+  }
+
+  emitUserAdd() {
+    this.addUser$.next();
+  }
+
+  emitUserEdit() {
+    this.editUser$.next();
+  }
+
+  setUserToEdit(user: User) {
+    this.userToEdit = user;
+    this.emitUserEdit();
   }
 
 }

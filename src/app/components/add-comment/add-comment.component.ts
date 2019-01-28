@@ -38,7 +38,7 @@ export class AddCommentComponent implements OnInit {
 
     this._postService.addComment(this.comment)
       .subscribe(() => {
-        this._commonService.emitPostAdd();
+        this._commonService.emitCommentAdd();
         this._addCommentForm.reset();
       });
   }
