@@ -46,7 +46,7 @@ function handleError(res, reason, message, code) {
 /**
  * GET: finds all posts
  */
-app.get("/api/posts", function (req, res, next) {
+app.get("/api/posts", function (req, res) {
   db.collection(POSTS_COLLECTION).find({}).toArray(function (err, docs) {
     if (err) {
       handleError(res, err.message, "Failed to get posts.");
@@ -59,7 +59,7 @@ app.get("/api/posts", function (req, res, next) {
 /**
  * POST: create a new comment
  */
-app.post("/api/posts", function (req, res, next) {
+app.post("/api/posts", function (req, res) {
   let newPost = req.body;
   newPost.createDate = new Date().toLocaleString();
 
@@ -79,7 +79,7 @@ app.post("/api/posts", function (req, res, next) {
 /**
  * GET: find comment by id
  */
-app.get("/api/posts/:id", function (req, res, next) {
+app.get("/api/posts/:id", function (req, res) {
   db.collection(POSTS_COLLECTION).findOne({_id: new ObjectID(req.params.id)}, function (err, doc) {
     if (err) {
       handleError(res, err.message, "Failed to get comment");
@@ -92,7 +92,7 @@ app.get("/api/posts/:id", function (req, res, next) {
 /**
  * PUT: update comment by id
  */
-app.put("/api/posts/:id", function (req, res, next) {
+app.put("/api/posts/:id", function (req, res) {
   let updatePost = req.body;
   delete updatePost._id;
 
@@ -109,7 +109,7 @@ app.put("/api/posts/:id", function (req, res, next) {
 /**
  * DELETE: delete comment by id
  */
-app.delete("/api/posts/:id", function (req, res, next) {
+app.delete("/api/posts/:id", function (req, res) {
   db.collection(POSTS_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function (err, result) {
     if (err) {
       handleError(res, err.message, "Failed to delete comment");
@@ -122,7 +122,7 @@ app.delete("/api/posts/:id", function (req, res, next) {
 /**
  * GET: find all users
  */
-app.get("/api/users", function (req, res, next) {
+app.get("/api/users", function (req, res) {
   db.collection(USERS_COLLECTION).find({}).toArray(function (err, docs) {
     if (err) {
       handleError(res, err.message, "Failed to get users.");
@@ -135,7 +135,7 @@ app.get("/api/users", function (req, res, next) {
 /**
  * POST: create new user
  */
-app.post("/api/users", function (req, res, next) {
+app.post("/api/users", function (req, res) {
   let newUser = req.body;
   newUser.registerDate = new Date().toLocaleString();
   newUser.supervisor = false;
@@ -156,7 +156,7 @@ app.post("/api/users", function (req, res, next) {
 /**
  * PUT: update user by id
  */
-app.put("/api/comments/:id", function (req, res, next) {
+app.put("/api/comments/:id", function (req, res) {
   let updateUser = req.body;
   delete updateUser._id;
 
@@ -173,7 +173,7 @@ app.put("/api/comments/:id", function (req, res, next) {
 /**
  * DELETE: delete user by id
  */
-app.delete("/api/comments/:id", function (req, res, next) {
+app.delete("/api/comments/:id", function (req, res) {
   db.collection(USERS_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function (err, result) {
     if (err) {
       handleError(res, err.message, "Failed to delete user");
@@ -187,7 +187,7 @@ app.delete("/api/comments/:id", function (req, res, next) {
 /**
  * GET: finds all comments
  */
-app.get("/api/comments", function (req, res, next) {
+app.get("/api/comments", function (req, res) {
   db.collection(COMMENTS_COLLECTION).find({}).toArray(function (err, docs) {
     if (err) {
       handleError(res, err.message, "Failed to get comments.");
@@ -200,7 +200,7 @@ app.get("/api/comments", function (req, res, next) {
 /**
  * POST: create a new comment
  */
-app.post("/api/comments", function (req, res, next) {
+app.post("/api/comments", function (req, res) {
   let newComment = req.body;
   newComment.createDate = new Date().toLocaleString();
 
@@ -220,7 +220,7 @@ app.post("/api/comments", function (req, res, next) {
 /**
  * PUT: update comment by id
  */
-app.put("/api/comments/:id", function (req, res, next) {
+app.put("/api/comments/:id", function (req, res) {
   let updateComment = req.body;
   delete updateComment._id;
 
@@ -237,7 +237,7 @@ app.put("/api/comments/:id", function (req, res, next) {
 /**
  * DELETE: delete comment by id
  */
-app.delete("/api/comments/:id", function (req, res, next) {
+app.delete("/api/comments/:id", function (req, res) {
   db.collection(COMMENTS_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function (err, result) {
     if (err) {
       handleError(res, err.message, "Failed to delete comment");
