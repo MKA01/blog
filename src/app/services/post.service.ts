@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Post } from '../models/post';
+import { PostComment } from '../models/post-comment';
 
 @Injectable()
 export class PostService {
@@ -17,7 +18,7 @@ export class PostService {
 
   /**
    * Metoda służy do dodania posta do bazy
-   * @param post - post do dodania
+   * @param post - comment do dodania
    */
   addPost(post: Post) {
     return this._httpClient.post('https://mkablog.herokuapp.com/api/posts', post);
@@ -25,7 +26,7 @@ export class PostService {
 
   /**
    * Metoda służy do zaktualizowania posta w bazie
-   * @param post - post do zaktualizowania
+   * @param post - comment do zaktualizowania
    * @param id - id posta do zaktualizowania
    */
   editPost(post: Post, id: string) {
@@ -38,5 +39,37 @@ export class PostService {
    */
   deletePost(id: string) {
     return this._httpClient.delete(`https://mkablog.herokuapp.com/api/posts/${ id }`);
+  }
+
+  /**
+   * Metoda służy do pobrania wszystkich komentarzy do postów z bazy
+   */
+  loadComments() {
+    return this._httpClient.get('https://mkablog.herokuapp.com/api/comments');
+  }
+
+  /**
+   * Metoda służy do dodania komentarza do posta do bazy
+   * @param comment - komentarz do dodania
+   */
+  addComment(comment: PostComment) {
+    return this._httpClient.post('https://mkablog.herokuapp.com/api/comments', comment);
+  }
+
+  /**
+   * Metoda służy do zaktualizowania komentarza w bazie
+   * @param comment - komentarz do zaktualizowania
+   * @param id - id komentarza do zaktualizowania
+   */
+  editComment(comment: PostComment, id: string) {
+    return this._httpClient.put(`https://mkablog.herokuapp.com/api/comments/${ id }`, comment);
+  }
+
+  /**
+   * Metoda służy do usunięcia komentarza z bazy
+   * @param id - id komentarza
+   */
+  deleteComment(id: string) {
+    return this._httpClient.delete(`https://mkablog.herokuapp.com/api/comments/${ id }`);
   }
 }

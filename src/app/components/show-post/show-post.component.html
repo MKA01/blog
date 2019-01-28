@@ -39,18 +39,35 @@
 
 <div class="list-group margin">
 
-  <a *ngFor="let post of posts" class="list-group-item list-group-item-action flex-column align-items-start">
+  <a *ngFor="let post of posts"
+     class="list-group-item list-group-item-action flex-column align-items-start"
+     (click)="goToPost(post)">
+
     <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">{{post.title}}</h5>
-      <small>{{post.createDate}}</small>
+
+      <h5 class="mb-1">
+        {{post.title}}
+      </h5>
+
+      <small>
+        {{post.createDate}}
+      </small>
+
     </div>
-    <p class="mb-1">{{post.description}}</p>
+
+    <p class="mb-1">
+      {{post.description}}
+    </p>
 
 
     <div class="d-flex w-100 justify-content-between">
-      <small>Autor: {{post.user}}</small>
+      <small>
+        Autor: {{post.user}}
+      </small>
 
-      <small>Tagi: {{post.tags}}</small>
+      <small>
+        Tagi: {{post.tags}}
+      </small>
     </div>
   </a>
 

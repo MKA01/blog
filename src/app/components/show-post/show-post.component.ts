@@ -3,6 +3,7 @@ import { PostService } from '../../services/post.service';
 import { Post } from '../../models/post';
 import { CommonService } from '../../services/common.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector : 'app-show-post',
@@ -16,7 +17,8 @@ export class ShowPostComponent implements OnInit {
 
   constructor(private _postService: PostService,
               private _commonService: CommonService,
-              private _formBuilder: FormBuilder) {
+              private _formBuilder: FormBuilder,
+              private _router: Router) {
     this._searchBar = _formBuilder.group({
       'tag' : [ '', Validators.required ]
     });
@@ -59,5 +61,9 @@ export class ShowPostComponent implements OnInit {
   resetTags() {
     this.getPosts(null);
     this._searchBar.reset();
+  }
+
+  goToPost(post: Post) {
+    this._router.navigate([ `app/post/${ post._id }` ]);
   }
 }

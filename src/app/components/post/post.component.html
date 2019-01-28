@@ -1,0 +1,223 @@
+<div class="list-group margin">
+
+  <div class="list-group-item flex-column align-items-start">
+
+    <div class="d-flex w-100 justify-content-between">
+
+      <h5 class="mb-1">
+        {{post.title}}
+      </h5>
+
+      <small>
+        {{post.createDate}}
+      </small>
+
+    </div>
+
+    <p class="mb-1">
+      {{post.description}}
+    </p>
+
+
+    <div class="d-flex w-100 justify-content-between">
+      <small>
+        Autor: {{post.user}}
+      </small>
+
+      <small>
+        Tagi: {{post.tags}}
+      </small>
+    </div>
+  </div>
+
+
+  <div class="list-group margin">
+
+    <a *ngFor="let comment of comments"
+       class="list-group-item list-group-item-action flex-column align-items-start">
+      <div class="d-flex w-100 justify-content-between">
+
+        <small>
+          {{comment.createDate}}
+        </small>
+
+      </div>
+
+      <p class="mb-1">{{comment.description}}</p>
+
+      <div class="d-flex w-100 justify-content-between">
+        <small>
+          Autor: {{comment.user}}
+        </small>
+
+        <div>
+          <button (click)="setEditComment(comment)"
+                  class="material-icons btn btn-primary"
+                  title="Edytuj post">
+            edit
+          </button>
+          <button (click)="setCommentToDelete(comment)"
+                  class="material-icons btn btn-danger"
+                  data-target="#deleteModal"
+                  data-toggle="modal"
+                  title="Usuń post">
+            delete
+          </button>
+        </div>
+
+      </div>
+    </a>
+
+  </div>
+</div>
+
+
+<div class="list-group margin bg-transparent">
+  <div class="list-group-item flex-column align-items-start bg-transparent">
+    <div class="d-flex w-100 justify-content-between">
+
+      <form #addCommentForm="ngForm"
+            (ngSubmit)="addComment()"
+            [formGroup]="_addCommentForm"
+            class="add-form">
+
+        <div class="form-group form-inline">
+          <textarea class="form-control"
+                    formControlName="description"
+                    id="description"
+                    name="description"
+                    placeholder="Wprowadź opis"
+                    required
+                    rows="6"
+                    type="text">
+          </textarea>
+        </div>
+
+        <button [disabled]="!addCommentForm.form.valid"
+                class="btn btn-primary btn-block submit-button"
+                type="submit">
+          Dodaj post
+        </button>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
+
+<!--Okno dialogowe usuwania komentarza-->
+<div class="modal fade"
+     id="deleteModal"
+     tabindex="-1"
+     role="dialog"
+     aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog"
+       role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"
+            id="exampleModalLabel">
+          Skasuj post
+        </h5>
+
+        <button type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close">
+          <span aria-hidden="true">
+            &times;
+          </span>
+        </button>
+
+      </div>
+
+      <div class="modal-body">
+        Czy na pewno chcesz usunąć wybrany komentarz?
+      </div>
+
+      <div class="modal-footer">
+
+        <button #closeButton1
+                (click)="cancelCommentDelete()"
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal">
+          Anuluj
+        </button>
+
+        <button (click)="deleteComment()"
+                type="button"
+                class="btn btn-primary">
+          Skasuj
+        </button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<button #editCommentButton
+        type="button"
+        style="display: none"
+        data-toggle="modal"
+        data-target="#exampleModal">
+  Edytuj post
+</button>
+
+<div aria-hidden="true"
+     aria-labelledby="editModal"
+     class="modal fade"
+     id="exampleModal"
+     role="dialog"
+     tabindex="-1">
+
+  <div class="modal-dialog"
+       role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <h5 class="modal-title"
+            id="editModal">
+          Edytuj post
+        </h5>
+
+        <button #closeButton
+                aria-label="Close"
+                class="close"
+                data-dismiss="modal"
+                type="button">
+          <span aria-hidden="true">
+            &times;
+          </span>
+
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="description-modal">
+              Opis
+            </label>
+            <textarea [(ngModel)]="comment.description"
+                      class="form-control"
+                      id="description-modal"
+                      name="description"
+                      placeholder="Wprowadź opis"
+                      required>
+            </textarea>
+          </div>
+
+          <button (click)="editComment()"
+                  class="btn btn-primary"
+                  type="button">
+            Zapisz zmiany
+          </button>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -5,7 +5,7 @@ import { User } from '../models/user';
 @Injectable({
   providedIn : 'root'
 })
-export class RegisterService {
+export class UserService {
 
   constructor(private _httpClient: HttpClient) { }
 
@@ -22,5 +22,22 @@ export class RegisterService {
    */
   registerUser(user: User) {
     return this._httpClient.post('https://mkablog.herokuapp.com/api/users', user);
+  }
+
+  /**
+   * Metoda służy do zaktualizowania danych użytkownika w bazie
+   * @param user - comment do zaktualizowania
+   * @param id - id posta do zaktualizowania
+   */
+  editUser(user: User, id: string) {
+    return this._httpClient.put(`https://mkablog.herokuapp.com/api/users/${ id }`, user);
+  }
+
+  /**
+   * Metoda służy do usunięcia użytkownika z bazy
+   * @param id - id użytkownika
+   */
+  deleteUser(id: string) {
+    return this._httpClient.delete(`https://mkablog.herokuapp.com/api/users/${ id }`);
   }
 }

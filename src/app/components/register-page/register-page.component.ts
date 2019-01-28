@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { RegisterService } from '../../services/register.service';
+import { UserService } from '../../services/user.service';
 import { User } from '../../models/user';
 
 @Component({
@@ -20,7 +20,7 @@ export class RegisterPageComponent implements OnInit {
   private _user: User = new User();
 
   constructor(private _router: Router,
-              private _registerService: RegisterService) { }
+              private _userService: UserService) { }
 
   ngOnInit() {
     this._userExists = false;
@@ -49,7 +49,7 @@ export class RegisterPageComponent implements OnInit {
       return;
     }
 
-    this._registerService.getUsers()
+    this._userService.getUsers()
       .subscribe((response: User[]) => {
         this._users = response;
         for (let i = 0; i < this._users.length; i++) {
@@ -57,7 +57,7 @@ export class RegisterPageComponent implements OnInit {
             this._userExists = true;
             return;
           }
-          this._registerService.registerUser(this._user)
+          this._userService.registerUser(this._user)
             .subscribe(() => {
               this._router.navigate([ 'login' ]);
             });

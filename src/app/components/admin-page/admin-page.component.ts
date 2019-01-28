@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Post } from '../../models/post';
 import { PostService } from '../../services/post.service';
-import { LoginService } from '../../services/login.service';
+import { UserService } from '../../services/user.service';
 import { User } from '../../models/user';
 import { CommonService } from '../../services/common.service';
 
@@ -21,7 +21,7 @@ export class AdminPageComponent implements OnInit {
   public post: Post = <Post>{};
 
   constructor(private _postService: PostService,
-              private _loginService: LoginService,
+              private _userService: UserService,
               private _commonService: CommonService) {
     this._commonService.editPost$.subscribe(() => {
       this.editPostButton.nativeElement.click();
@@ -40,7 +40,7 @@ export class AdminPageComponent implements OnInit {
    * Metoda nasłuchuje na odpowiedź z bazy i zapisuje pobranych użytkowników do zmiennej
    */
   getUsers() {
-    this._loginService.getUsers()
+    this._userService.getUsers()
       .subscribe((response: User[]) => {
         this.users = response;
       });

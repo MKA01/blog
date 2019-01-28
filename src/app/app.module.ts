@@ -14,12 +14,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatCheckboxModule, MatToolbarModule } from '@angular/material';
 import { RegisterPageComponent } from './components/register-page/register-page.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
-import { LoginService } from './services/login.service';
+import { UserService } from './services/user.service';
 import { AppContainerComponent } from './components/app-container/app-container.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { ContactMeComponent } from './components/contact-me/contact-me.component';
 import { AdminPageComponent } from './components/admin-page/admin-page.component';
 import { PostService } from './services/post.service';
+import { PostComponent } from './components/post/post.component';
 
 @NgModule({
   declarations : [
@@ -31,7 +32,8 @@ import { PostService } from './services/post.service';
     RegisterPageComponent,
     AppContainerComponent,
     ContactMeComponent,
-    AdminPageComponent
+    AdminPageComponent,
+    PostComponent
   ],
   imports : [
     BrowserModule,
@@ -46,7 +48,7 @@ import { PostService } from './services/post.service';
   ],
   providers : [
     CommonService,
-    LoginService,
+    UserService,
     AuthGuardService,
     PostService,
     { provide : LocationStrategy, useClass : HashLocationStrategy } ],

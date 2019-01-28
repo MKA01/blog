@@ -6,6 +6,7 @@ let ObjectID = mongodb.ObjectID;
 
 let POSTS_COLLECTION = "posts";
 let USERS_COLLECTION = "users";
+let COMMENTS_COLLECTION = "comments";
 
 let app = express();
 app.use(bodyParser.json());
@@ -60,18 +61,18 @@ app.get("/api/posts", cors(corsOptions), function (req, res) {
 });
 
 /**
- * POST: create a new post
+ * POST: create a new comment
  */
 app.post("/api/posts", cors(corsOptions), function (req, res) {
   let newPost = req.body;
   newPost.createDate = new Date().toLocaleString();
 
   if (!req.body.title) {
-    handleError(res, "Invalid user input", "Must provide a title.", 400);
+    handleError(res, "Invalid comment input", "Must provide a title.", 400);
   } else {
     db.collection(POSTS_COLLECTION).insertOne(newPost, function (err, doc) {
       if (err) {
-        handleError(res, err.message, "Failed to create new post.");
+        handleError(res, err.message, "Failed to create new comment.");
       } else {
         res.status(201).json(doc.ops[0]);
       }
@@ -80,12 +81,12 @@ app.post("/api/posts", cors(corsOptions), function (req, res) {
 });
 
 /**
- * GET: find post by id
+ * GET: find comment by id
  */
 app.get("/api/posts/:id", cors(corsOptions), function (req, res) {
   db.collection(POSTS_COLLECTION).findOne({_id: new ObjectID(req.params.id)}, function (err, doc) {
     if (err) {
-      handleError(res, err.message, "Failed to get post");
+      handleError(res, err.message, "Failed to get comment");
     } else {
       res.status(200).json(doc);
     }
@@ -93,7 +94,7 @@ app.get("/api/posts/:id", cors(corsOptions), function (req, res) {
 });
 
 /**
- * PUT: update post by id
+ * PUT: update comment by id
  */
 app.put("/api/posts/:id", cors(corsOptions), function (req, res) {
   let updatePost = req.body;
@@ -101,7 +102,7 @@ app.put("/api/posts/:id", cors(corsOptions), function (req, res) {
 
   db.collection(POSTS_COLLECTION).replaceOne({_id: new ObjectID(req.params.id)}, updatePost, function (err, doc) {
     if (err) {
-      handleError(res, err.message, "Failed to update post");
+      handleError(res, err.message, "Failed to update comment");
     } else {
       updatePost._id = req.params.id;
       res.status(200).json(updatePost);
@@ -110,12 +111,12 @@ app.put("/api/posts/:id", cors(corsOptions), function (req, res) {
 });
 
 /**
- * DELETE: delete post by id
+ * DELETE: delete comment by id
  */
 app.delete("/api/posts/:id", cors(corsOptions), function (req, res) {
   db.collection(POSTS_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function (err, result) {
     if (err) {
-      handleError(res, err.message, "Failed to delete post");
+      handleError(res, err.message, "Failed to delete comment");
     } else {
       res.status(200).json(req.params.id);
     }
@@ -154,4 +155,98 @@ app.post("/api/users", cors(corsOptions), function (req, res) {
       }
     });
   }
+});
+
+/**
+ * PUT: update user by id
+ */
+app.put("/api/comments/:id", cors(corsOptions), function (req, res) {
+  let updateUser = req.body;
+  delete updateUser._id;
+
+  db.collection(USERS_COLLECTION).replaceOne({_id: new ObjectID(req.params.id)}, updateUser, function (err, doc) {
+    if (err) {
+      handleError(res, err.message, "Failed to update user");
+    } else {
+      updateUser._id = req.params.id;
+      res.status(200).json(updateUser);
+    }
+  });
+});
+
+/**
+ * DELETE: delete user by id
+ */
+app.delete("/api/comments/:id", cors(corsOptions), function (req, res) {
+  db.collection(USERS_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function (err, result) {
+    if (err) {
+      handleError(res, err.message, "Failed to delete user");
+    } else {
+      res.status(200).json(req.params.id);
+    }
+  });
+});
+
+
+/**
+ * GET: finds all comments
+ */
+app.get("/api/comments", cors(corsOptions), function (req, res) {
+  db.collection(COMMENTS_COLLECTION).find({}).toArray(function (err, docs) {
+    if (err) {
+      handleError(res, err.message, "Failed to get comments.");
+    } else {
+      res.status(200).json(docs);
+    }
+  });
+});
+
+/**
+ * POST: create a new comment
+ */
+app.post("/api/comments", cors(corsOptions), function (req, res) {
+  let newComment = req.body;
+  newComment.createDate = new Date().toLocaleString();
+
+  if (!req.body.description) {
+    handleError(res, "Invalid comment input", "Must provide a description.", 400);
+  } else {
+    db.collection(COMMENTS_COLLECTION).insertOne(newComment, function (err, doc) {
+      if (err) {
+        handleError(res, err.message, "Failed to create new comment.");
+      } else {
+        res.status(201).json(doc.ops[0]);
+      }
+    });
+  }
+});
+
+/**
+ * PUT: update comment by id
+ */
+app.put("/api/comments/:id", cors(corsOptions), function (req, res) {
+  let updateComment = req.body;
+  delete updateComment._id;
+
+  db.collection(COMMENTS_COLLECTION).replaceOne({_id: new ObjectID(req.params.id)}, updateComment, function (err, doc) {
+    if (err) {
+      handleError(res, err.message, "Failed to update comment");
+    } else {
+      updateComment._id = req.params.id;
+      res.status(200).json(updateComment);
+    }
+  });
+});
+
+/**
+ * DELETE: delete comment by id
+ */
+app.delete("/api/comments/:id", cors(corsOptions), function (req, res) {
+  db.collection(COMMENTS_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function (err, result) {
+    if (err) {
+      handleError(res, err.message, "Failed to delete comment");
+    } else {
+      res.status(200).json(req.params.id);
+    }
+  });
 });

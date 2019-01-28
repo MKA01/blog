@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from '../../services/login.service';
+import { UserService } from '../../services/user.service';
 import { User } from '../../models/user';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
@@ -8,7 +8,7 @@ import { NgForm } from '@angular/forms';
   selector : 'app-login',
   templateUrl : './login-page.component.html',
   styleUrls : [ './login-page.component.scss' ],
-  providers : [ LoginService ]
+  providers : [ UserService ]
 })
 export class LoginPageComponent implements OnInit {
   private _user: User = new User();
@@ -18,7 +18,7 @@ export class LoginPageComponent implements OnInit {
   private _secondNumber: number;
   private _users: User[];
 
-  constructor(private _loginService: LoginService,
+  constructor(private _userService: UserService,
               private _router: Router) {
     this._user = new User();
   }
@@ -45,7 +45,7 @@ export class LoginPageComponent implements OnInit {
       return;
     }
 
-    this._loginService.getUsers()
+    this._userService.getUsers()
       .subscribe((response: User[]) => {
         this._users = response;
         for (let i = 0; i < this._users.length; i++) {
