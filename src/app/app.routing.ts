@@ -45,7 +45,7 @@ const routes: Routes = [
         component : AdminPageComponent
       },
       {
-        path: 'post/:id',
+        path : 'post/:id',
         component : PostComponent
       }
     ]
