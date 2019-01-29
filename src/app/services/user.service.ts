@@ -24,10 +24,6 @@ export class UserService {
     return this._httpClient.post('https://mkablog.herokuapp.com/api/users', user);
   }
 
-  getUser(username: string) {
-    return this._httpClient.get(`https://mkablog.herokuapp.com/api/users/${ username }`);
-  }
-
   /**
    * Metoda służy do zaktualizowania danych użytkownika w bazie
    * @param user - comment do zaktualizowania

@@ -3,7 +3,6 @@ let bodyParser = require("body-parser");
 let mongodb = require("mongodb");
 let cors = require("cors");
 let ObjectID = mongodb.ObjectID;
-let passwordHash = require('password-hash');
 
 let POSTS_COLLECTION = "posts";
 let USERS_COLLECTION = "users";
@@ -140,7 +139,6 @@ app.post("/api/users", function (req, res) {
   let newUser = req.body;
   newUser.registerDate = new Date().toLocaleString();
   newUser.supervisor = false;
-  newUser.password = passwordHash.generate(req.body.password);
 
   if (!req.body.username && !req.body.password) {
     handleError(res, "Invalid user input", "Must provide a username and password.", 400);
@@ -153,21 +151,6 @@ app.post("/api/users", function (req, res) {
       }
     });
   }
-});
-
-/**
- * GET: find user by username
- */
-app.get("/api/user/:username", function (req, res) {
-  db.collection(POSTS_COLLECTION).findOne({username: new ObjectID(req.params.username)}, function (err, doc) {
-    if (err) {
-      handleError(res, err.message, "Failed to get user");
-    } else {
-      res.status(200).json(doc);
-    }
-  }).then(user => {
-    user.password = passwordHash.verify('password123', req.params.password);
-  });
 });
 
 /**

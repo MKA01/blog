@@ -33,7 +33,6 @@
     "jquery": "^3.3.1",
     "mongodb": "^3.1.12",
     "ngx-bootstrap": "^3.1.4",
-    "password-hash": "^1.2.2",
     "popper.js": "^1.14.6",
     "rxjs": "~6.3.3",
     "tether": "^1.4.5",

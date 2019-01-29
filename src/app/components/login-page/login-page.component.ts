@@ -45,39 +45,24 @@ export class LoginPageComponent implements OnInit {
       return;
     }
 
-    this._userService.getUser(this._user.username)
-      .subscribe((user: User) => {
-        if (user.username === this._user.username && user.password === this._user.password) {
-          localStorage.setItem('loggedUser', this._user.username);
-          if (user.supervisor) {
-            localStorage.setItem('supervisor', '1');
+    this._userService.getUsers()
+      .subscribe((response: User[]) => {
+        this._users = response;
+        for (let i = 0; i < this._users.length; i++) {
+          if (this._users[ i ].username === this._user.username && this._users[ i ].password === this._user.password) {
+            localStorage.setItem('loggedUser', this._user.username);
+            if (this._users[ i ].supervisor) {
+              localStorage.setItem('supervisor', '1');
+            } else {
+              localStorage.setItem('supervisor', '0');
+            }
+            this._router.navigate([ 'app/home' ]);
+            return;
           } else {
-            localStorage.setItem('supervisor', '0');
+            this._wrongCredentials = true;
           }
-          this._router.navigate([ 'app/home' ]);
-          return;
-        } else {
-          this._wrongCredentials = true;
         }
       });
-    // this._userService.getUsers()
-    //   .subscribe((response: User[]) => {
-    //     this._users = response;
-    //     for (let i = 0; i < this._users.length; i++) {
-    //       if (this._users[ i ].username === this._user.username && this._users[ i ].password === this._user.password) {
-    //         localStorage.setItem('loggedUser', this._user.username);
-    //         if (this._users[ i ].supervisor) {
-    //           localStorage.setItem('supervisor', '1');
-    //         } else {
-    //           localStorage.setItem('supervisor', '0');
-    //         }
-    //         this._router.navigate([ 'app/home' ]);
-    //         return;
-    //       } else {
-    //         this._wrongCredentials = true;
-    //       }
-    //     }
-    //   });
   }
 
   /**
