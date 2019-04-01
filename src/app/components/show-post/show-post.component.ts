@@ -5,6 +5,9 @@ import { CommonService } from '../../services/common.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { interval } from 'rxjs';
+import * as JsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+import dateFormat from 'dateformat';
 
 @Component({
   selector : 'app-show-post',
@@ -55,6 +58,23 @@ export class ShowPostComponent implements OnInit {
 
   goToPost(post: Post) {
     this._router.navigate([ `app/post/${ post._id }` ]);
+  }
+
+  convertPostsToPdf() {
+    const data = document.getElementById('posts');
+
+    html2canvas(data).then(canvas => {
+      const imgWidth = 210;
+      const imgHeight = canvas.height * imgWidth / canvas.width;
+      const contentDataURL = canvas.toDataURL('image/png');
+      const pdf = new JsPDF();
+      const position = 0;
+      const saveDate = new Date();
+
+      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
+      pdf.save(`posts-${ dateFormat(saveDate, 'd/m/yy-HH:MM:ss') }.pdf`);
+    });
+
   }
 
   private getPosts() {

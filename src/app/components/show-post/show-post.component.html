@@ -1,4 +1,5 @@
 <div class="margin bg-transparent">
+
   <form #searchBarForm="ngForm"
         (ngSubmit)="searchByTag()"
         [formGroup]="_searchBar"
@@ -26,53 +27,64 @@
       <span class="input-group-btn">
             <button (click)="resetTags()"
                     class="material-icons btn btn-danger btn-block"
-                    title="Wyczyść tag">
+                    title="Wyczyść tag"
+                    type="reset">
               cancel
             </button>
           </span>
 
+      <span class="input-group-btn">
+            <button (click)="convertPostsToPdf()"
+                    class="material-icons btn btn-primary btn-block"
+                    title="Zapisz posty"
+                    type="button">
+              save
+            </button>
+          </span>
     </div>
   </form>
 </div>
 
 <br>
 
-<ng-container *ngIf="posts.length">
-  <ng-container *ngFor="let post of posts">
-    <ng-container *ngIf="post !== undefined">
-      <div class="list-group margin">
-        <a class="list-group-item list-group-item-action flex-column align-items-start"
-           (click)="goToPost(post)">
+<div id="posts">
+  <ng-container *ngIf="posts.length">
+    <ng-container *ngFor="let post of posts">
+      <ng-container *ngIf="post !== undefined">
+        <div class="list-group margin">
+          <a class="list-group-item list-group-item-action flex-column align-items-start"
+             (click)="goToPost(post)">
 
-          <div class="d-flex w-100 justify-content-between">
+            <div class="d-flex w-100 justify-content-between">
 
-            <h5 class="mb-1">
-              {{post.title}}
-            </h5>
+              <h5 class="mb-1">
+                {{post.title}}
+              </h5>
 
-            <small>
-              {{post.createDate}}
-            </small>
+              <small>
+                {{post.createDate}}
+              </small>
 
-          </div>
+            </div>
 
-          <p class="mb-1">
-            {{post.description}}
-          </p>
+            <p class="mb-1">
+              {{post.description}}
+            </p>
 
 
-          <div class="d-flex w-100 justify-content-between">
-            <small>
-              Autor: {{post.user}}
-            </small>
+            <div class="d-flex w-100 justify-content-between">
+              <small>
+                Autor: {{post.user}}
+              </small>
 
-            <small>
-              Tagi: {{post.tags}}
-            </small>
-          </div>
-        </a>
+              <small>
+                Tagi: {{post.tags}}
+              </small>
+            </div>
+          </a>
 
-      </div>
+        </div>
+      </ng-container>
     </ng-container>
   </ng-container>
-</ng-container>
+</div>
