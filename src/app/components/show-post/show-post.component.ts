@@ -20,12 +20,13 @@ export class ShowPostComponent implements OnInit {
   private _searchBar: FormGroup;
   private _tagValue: string;
 
-  constructor(private _postService: PostService, private _commonService: CommonService, private _formBuilder: FormBuilder, private _router: Router) {
+  constructor(private _postService: PostService, private _commonService: CommonService, private _formBuilder: FormBuilder,
+              private _router: Router) {
     this._searchBar = _formBuilder.group({
       'tag' : [ '', Validators.required ]
     });
 
-    interval(10000).subscribe(() => {
+    interval(50000).subscribe(() => {
       this.refreshPosts();
     });
 
