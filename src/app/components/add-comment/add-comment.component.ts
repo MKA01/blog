@@ -28,9 +28,6 @@ export class AddCommentComponent implements OnInit {
   ngOnInit() {
   }
 
-  /**
-   * Metoda służy do dodania posta z danych wprowadzonych w formularzu
-   */
   addComment() {
     this.comment.description = this._addCommentForm.get('description').value;
     this.comment.user = localStorage.getItem('loggedUser');

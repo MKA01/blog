@@ -49,9 +49,6 @@ export class AdminPageComponent implements OnInit {
     });
   }
 
-  /**
-   * Metoda nasłuchuje na odpowiedź z bazy i zapisuje pobranych użytkowników do zmiennej
-   */
   getUsers() {
     this._userService.getUsers()
       .subscribe((response: User[]) => {
@@ -59,9 +56,6 @@ export class AdminPageComponent implements OnInit {
       });
   }
 
-  /**
-   * Metoda nasłuchuje na odpowiedź z bazy i zapisuje pobrane posty do zmiennej
-   */
   getPosts() {
     this._postService.loadPosts()
       .subscribe((response: Post[]) => {
@@ -69,24 +63,14 @@ export class AdminPageComponent implements OnInit {
       });
   }
 
-  /**
-   * Metoda służy do przygotowania posta do usunięcia
-   * @param post - post do usunięcia
-   */
   setPostToDelete(post: Post) {
     this.postToDelete = post;
   }
 
-  /**
-   * Metoda służy do wyczyszczenia posta do usunięcia po kliknięciu przycisku anuluj
-   */
   cancelPostDelete() {
     this.postToDelete = null;
   }
 
-  /**
-   * Metoda służy do usunięcia posta
-   */
   deletePost() {
     this._postService.deletePost(this.postToDelete._id)
       .subscribe(() => {
@@ -95,17 +79,10 @@ export class AdminPageComponent implements OnInit {
       });
   }
 
-  /**
-   * Metoda służy do edytowania postu
-   * @param post - post do edycji
-   */
   setEditPost(post: Post) {
     this._commonService.setPostToEdit(post);
   }
 
-  /**
-   * Metoda służy do zedytowania posta
-   */
   editPost() {
     this._postService.editPost(this.post, this.post._id)
       .subscribe(() => {
@@ -115,24 +92,14 @@ export class AdminPageComponent implements OnInit {
       });
   }
 
-  /**
-   * Metoda służy do przygotowania użytkownika do usunięcia
-   * @param user - użytkownik do usunięcia
-   */
   setUserToDelete(user: User) {
     this.userToDelete = user;
   }
 
-  /**
-   * Metoda służy do wyczyszczenia użytkownika do usunięcia po kliknięciu przycisku anuluj
-   */
   cancelUserDelete() {
     this.userToDelete = null;
   }
 
-  /**
-   * Metoda służy do usunięcia użytkownika
-   */
   deleteUser() {
     this._userService.deleteUser(this.userToDelete._id)
       .subscribe(() => {
@@ -141,17 +108,10 @@ export class AdminPageComponent implements OnInit {
       });
   }
 
-  /**
-   * Metoda służy do edytowania użytkownika
-   * @param user - użytkownik do edycji
-   */
   setEditUser(user: User) {
     this._commonService.setUserToEdit(user);
   }
 
-  /**
-   * Metoda służy do zedytowania posta
-   */
   editUser() {
     this._userService.editUser(this.user, this.user._id)
       .subscribe(() => {

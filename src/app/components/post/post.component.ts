@@ -39,32 +39,18 @@ export class PostComponent implements OnInit {
     });
   }
 
-  /**
-   * Metoda służy do edytowania komentarza
-   * @param comment - komentarz do edycji
-   */
   setEditComment(comment: PostComment) {
     this._commonService.setCommentToEdit(comment);
   }
 
-  /**
-   * Metoda służy do przygotowania komentarza do usunięcia
-   * @param comment - komentarz do usunięcia
-   */
   setCommentToDelete(comment: PostComment) {
     this.commentToDelete = comment;
   }
 
-  /**
-   * Metoda służy do wyczyszczenia komentarza do usunięcia po kliknięciu przycisku anuluj
-   */
   cancelCommentDelete() {
     this.commentToDelete = null;
   }
 
-  /**
-   * Metoda służy do usunięcia komentarza
-   */
   deleteComment() {
     this._postService.deleteComment(this.commentToDelete._id).subscribe(() => {
       this._downloadPostDetail();
@@ -72,9 +58,6 @@ export class PostComponent implements OnInit {
     });
   }
 
-  /**
-   * Metoda służy do zedytowania komentarza
-   */
   editComment() {
     this._postService.editComment(this.postComment, this.postComment._id)
       .subscribe(() => {
@@ -84,9 +67,6 @@ export class PostComponent implements OnInit {
       });
   }
 
-  /**
-   * Metoda służy do pobrania danych posta do wyświetlenia
-   */
   private _downloadPostDetail() {
     this._postService.loadPosts()
       .subscribe((posts: Post[]) => {
@@ -95,10 +75,6 @@ export class PostComponent implements OnInit {
       });
   }
 
-  /**
-   * Metoda służy do pobrania komentarzy do posta po id posta
-   * @param postId - id posta
-   */
   private _downloadPostComments(postId: string) {
     this.postComments = [];
     this._postService.loadComments()

@@ -25,9 +25,6 @@ export class AddPostComponent {
     });
   }
 
-  /**
-   * Metoda służy do dodania posta z danych wprowadzonych w formularzu
-   */
   addPost() {
     this.post.title = this._addPostForm.get('title').value;
     this.post.description = this._addPostForm.get('description').value;

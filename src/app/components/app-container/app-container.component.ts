@@ -18,31 +18,19 @@ export class AppContainerComponent implements OnInit {
     }
   }
 
-  /**
-   * Metoda służy do wylogowania użytkownika
-   */
   private _logOutButtonClick() {
     localStorage.removeItem('loggedUser');
     this._router.navigate([ 'login' ]);
   }
 
-  /**
-   * Metoda służy do przeniesienia użytkownika do strony głównej
-   */
   private _homeButtonClick() {
     this._router.navigate([ 'app/home' ]);
   }
 
-  /**
-   * Metoda służy do przeniesienia użytkownika do formularza kontaktowego
-   */
   private _contactButtonClick() {
     this._router.navigate([ 'app/contact' ]);
   }
 
-  /**
-   * Metoda służy do przedniesienia użytkownika do panelu administratora
-   */
   private _adminButtonClicked() {
     this._router.navigate([ 'app/admin' ]);
   }

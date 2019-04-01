@@ -30,9 +30,6 @@ export class LoginPageComponent implements OnInit {
     this._secondNumber = Math.floor(Math.random() * 5 + 1);
   }
 
-  /**
-   * Metoda służy do zweryfikowania czy wprowadzone dane logowania są prawidłowe.
-   */
   private _validateCredentials(form: NgForm) {
     this._wrongCaptcha = false;
     this._wrongCredentials = false;
@@ -65,9 +62,6 @@ export class LoginPageComponent implements OnInit {
       });
   }
 
-  /**
-   * Metoda służy do przeniesienia do strony rejestracji po kliknięciu przycisku
-   */
   private _navigateToRegisterPage() {
     this._router.navigate([ 'register' ]);
   }

@@ -4,6 +4,7 @@ import { Post } from '../../models/post';
 import { CommonService } from '../../services/common.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { interval } from 'rxjs';
 
 @Component({
   selector : 'app-show-post',
@@ -14,62 +15,83 @@ export class ShowPostComponent implements OnInit {
 
   public posts: Post[] = [];
   private _searchBar: FormGroup;
+  private _tagValue: string;
 
-  constructor(private _postService: PostService,
-              private _commonService: CommonService,
-              private _formBuilder: FormBuilder,
-              private _router: Router) {
+  constructor(private _postService: PostService, private _commonService: CommonService, private _formBuilder: FormBuilder, private _router: Router) {
     this._searchBar = _formBuilder.group({
       'tag' : [ '', Validators.required ]
     });
+
+    interval(10000).subscribe(() => {
+      this.refreshPosts();
+    });
+
+    this._tagValue = null;
   }
 
   ngOnInit() {
-    this.getPosts(null);
+    this.getPosts();
 
     this._commonService.addPost$.subscribe(() => {
-      this.getPosts(null);
+      this.getPosts();
     });
-  }
 
-  /**
-   * Metoda nasłuchuje na odpowiedź z bazy i zapisuje pobrane posty do zmiennej
-   */
-  getPosts(tag: string) {
-    this.posts = [];
-    this._postService.loadPosts()
-      .subscribe((response: Post[]) => {
-        if (tag === null) {
-          this.posts = response;
-        } else {
-          for (let i = 0; i < response.length; i++) {
-            if (response[ i ].tags.length === 0) {
-              if (response[ i ].tags[ 0 ] === tag.toLowerCase()) {
-                this.posts.push(response[ i ]);
-              }
-            } else {
-              for (let j = 0; j < response[ i ].tags.length; j++) {
-                if (response[ i ].tags[ j ] === tag.toLowerCase()) {
-                  this.posts.push(response[ i ]);
-                  break;
-                }
-              }
-            }
-          }
-        }
+    this._searchBar.valueChanges
+      .subscribe(a => {
+        this.searchDuringTyping();
       });
   }
 
   searchByTag() {
-    this.getPosts(this._searchBar.get('tag').value);
+    this._tagValue = this._searchBar.get('tag').value;
+    this.getPosts();
   }
 
   resetTags() {
-    this.getPosts(null);
+    this._tagValue = null;
     this._searchBar.reset();
+    this.getPosts();
   }
 
   goToPost(post: Post) {
     this._router.navigate([ `app/post/${ post._id }` ]);
+  }
+
+  private getPosts() {
+    this.posts = [];
+    this._postService.loadPosts()
+      .subscribe((response: Post[]) => {
+        if (this._tagValue !== null) {
+          this.getPostsByTag(response);
+        } else {
+          this.posts = response;
+        }
+      });
+  }
+
+  private getPostsByTag(response: Post[]) {
+    const lowerCaseTag = this._tagValue.toLowerCase();
+
+    for (let i = 0; i < response.length; i++) {
+      if (response[ i ].tags.length === 0 && response[ i ].tags[ 0 ] === lowerCaseTag) {
+        this.posts.push(response[ i ]);
+      } else {
+        for (let j = 0; j < response[ i ].tags.length; j++) {
+          if (response[ i ].tags[ j ] === lowerCaseTag) {
+            this.posts.push(response[ i ]);
+            break;
+          }
+        }
+      }
+    }
+  }
+
+  private searchDuringTyping() {
+    this.searchByTag();
+  }
+
+  private refreshPosts() {
+    console.log('Autorefresh posts');
+    this.getPosts();
   }
 }
