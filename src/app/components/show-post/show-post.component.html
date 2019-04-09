@@ -41,6 +41,15 @@
               save
             </button>
           </span>
+
+      <span class="input-group-btn">
+            <button (click)="printPosts()"
+                    class="material-icons btn btn-warning btn-block"
+                    title="Wydrukuj posty"
+                    type="button">
+              print
+            </button>
+          </span>
     </div>
   </form>
 </div>
@@ -52,8 +61,8 @@
     <ng-container *ngFor="let post of posts">
       <ng-container *ngIf="post !== undefined">
         <div class="list-group margin">
-          <a class="list-group-item list-group-item-action flex-column align-items-start"
-             (click)="goToPost(post)">
+          <a (click)="goToPost(post)"
+             class="list-group-item list-group-item-action flex-column align-items-start">
 
             <div class="d-flex w-100 justify-content-between">
 

@@ -78,12 +78,12 @@
 <app-add-comment></app-add-comment>
 
 <!--Okno dialogowe usuwania komentarza-->
-<div class="modal fade"
-     id="deleteModal"
-     tabindex="-1"
-     role="dialog"
+<div aria-hidden="true"
      aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
+     class="modal fade"
+     id="deleteModal"
+     role="dialog"
+     tabindex="-1">
   <div class="modal-dialog"
        role="document">
     <div class="modal-content">
@@ -93,10 +93,10 @@
           Skasuj post
         </h5>
 
-        <button type="button"
+        <button aria-label="Close"
                 class="close"
                 data-dismiss="modal"
-                aria-label="Close">
+                type="button">
           <span aria-hidden="true">
             &times;
           </span>
@@ -112,15 +112,15 @@
 
         <button #closeButton1
                 (click)="cancelCommentDelete()"
-                type="button"
                 class="btn btn-secondary"
-                data-dismiss="modal">
+                data-dismiss="modal"
+                type="button">
           Anuluj
         </button>
 
         <button (click)="deleteComment()"
-                type="button"
-                class="btn btn-primary">
+                class="btn btn-primary"
+                type="button">
           Skasuj
         </button>
 
@@ -130,10 +130,10 @@
 </div>
 
 <button #editCommentButton
-        type="button"
-        style="display: none"
+        data-target="#exampleModal"
         data-toggle="modal"
-        data-target="#exampleModal">
+        style="display: none"
+        type="button">
   Edytuj komentarz
 </button>
 

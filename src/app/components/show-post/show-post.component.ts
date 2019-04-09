@@ -5,9 +5,7 @@ import { CommonService } from '../../services/common.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { interval } from 'rxjs';
-import * as JsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
-import dateFormat from 'dateformat';
+import { PdfMaker } from '../../utils/PdfMaker';
 
 @Component({
   selector : 'app-show-post',
@@ -41,7 +39,7 @@ export class ShowPostComponent implements OnInit {
     });
 
     this._searchBar.valueChanges
-      .subscribe(a => {
+      .subscribe(() => {
         this.searchDuringTyping();
       });
   }
@@ -62,20 +60,11 @@ export class ShowPostComponent implements OnInit {
   }
 
   convertPostsToPdf() {
-    const data = document.getElementById('posts');
+    new PdfMaker(this.posts).createPdfForPosts();
+  }
 
-    html2canvas(data).then(canvas => {
-      const imgWidth = 210;
-      const imgHeight = canvas.height * imgWidth / canvas.width;
-      const contentDataURL = canvas.toDataURL('image/png');
-      const pdf = new JsPDF();
-      const position = 0;
-      const saveDate = new Date();
-
-      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
-      pdf.save(`posts-${ dateFormat(saveDate, 'd/m/yy-HH:MM:ss') }.pdf`);
-    });
-
+  printPosts() {
+    new PdfMaker(this.posts).printPosts();
   }
 
   private getPosts() {
@@ -112,7 +101,7 @@ export class ShowPostComponent implements OnInit {
   }
 
   private refreshPosts() {
-    console.log('Autorefresh posts');
+    console.log('Async refresh posts');
     this.getPosts();
   }
 }

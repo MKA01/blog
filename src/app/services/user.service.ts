@@ -20,7 +20,7 @@ export class UserService {
   editUser(user: User, id: string) {
     return this._httpClient.put(`https://mkablog.herokuapp.com/api/users/${ id }`, user);
   }
-  
+
   deleteUser(id: string) {
     return this._httpClient.delete(`https://mkablog.herokuapp.com/api/users/${ id }`);
   }

@@ -103,12 +103,12 @@
 </ng-container>
 
 <!--Okno dialogowe usuwania postu-->
-<div class="modal fade"
-     id="deleteModal"
-     tabindex="-1"
-     role="dialog"
+<div aria-hidden="true"
      aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
+     class="modal fade"
+     id="deleteModal"
+     role="dialog"
+     tabindex="-1">
   <div class="modal-dialog"
        role="document">
     <div class="modal-content">
@@ -118,10 +118,10 @@
           Skasuj post
         </h5>
 
-        <button type="button"
+        <button aria-label="Close"
                 class="close"
                 data-dismiss="modal"
-                aria-label="Close">
+                type="button">
           <span aria-hidden="true">
             &times;
           </span>
@@ -137,15 +137,15 @@
 
         <button #cancelPostDeleteButton
                 (click)="cancelPostDelete()"
-                type="button"
                 class="btn btn-secondary"
-                data-dismiss="modal">
+                data-dismiss="modal"
+                type="button">
           Anuluj
         </button>
 
         <button (click)="deletePost()"
-                type="button"
-                class="btn btn-primary">
+                class="btn btn-primary"
+                type="button">
           Skasuj
         </button>
 
@@ -155,10 +155,10 @@
 </div>
 
 <button #editPostButton
-        type="button"
-        style="display: none"
+        data-target="#exampleModal"
         data-toggle="modal"
-        data-target="#exampleModal">
+        style="display: none"
+        type="button">
   Edytuj post
 </button>
 
@@ -250,12 +250,12 @@
 
 
 <!--Okno dialogowe usuwania użytkownika-->
-<div class="modal fade"
-     id="deleteUserModal"
-     tabindex="-1"
-     role="dialog"
+<div aria-hidden="true"
      aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
+     class="modal fade"
+     id="deleteUserModal"
+     role="dialog"
+     tabindex="-1">
   <div class="modal-dialog"
        role="document">
     <div class="modal-content">
@@ -265,10 +265,10 @@
           Skasuj użytkownika
         </h5>
 
-        <button type="button"
+        <button aria-label="Close"
                 class="close"
                 data-dismiss="modal"
-                aria-label="Close">
+                type="button">
           <span aria-hidden="true">
             &times;
           </span>
@@ -284,15 +284,15 @@
 
         <button #cancelUserDeleteButton
                 (click)="cancelUserDelete()"
-                type="button"
                 class="btn btn-secondary"
-                data-dismiss="modal">
+                data-dismiss="modal"
+                type="button">
           Anuluj
         </button>
 
         <button (click)="deleteUser()"
-                type="button"
-                class="btn btn-primary">
+                class="btn btn-primary"
+                type="button">
           Skasuj
         </button>
 
@@ -302,10 +302,10 @@
 </div>
 
 <button #editUserButton
-        type="button"
-        style="display: none"
+        data-target="#exampleUserModal"
         data-toggle="modal"
-        data-target="#exampleUserModal">
+        style="display: none"
+        type="button">
   Edytuj użytkownika
 </button>
 
